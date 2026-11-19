@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             WebsiteSettingsSeeder::class,
             SystemPageSeeder::class,
-            MenuSeeder::class,
             ProjectCategorySeeder::class,
             ProjectSeeder::class,
         ]);

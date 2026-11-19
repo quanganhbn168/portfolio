@@ -67,20 +67,11 @@ final class ProjectForm
                 Section::make('Ảnh thi công')->collapsed()->schema([
                     self::image('details.construction.images', 'Ảnh thi công')->multiple(),
                 ]),
-                Section::make('Kết quả')->collapsed()->schema([
-                    self::cards('results', 'Các kết quả'),
-                ]),
-                Section::make('Nhận xét chủ đầu tư')->collapsed()->schema([
-                    Textarea::make('details.testimonial.quote')->label('Nhận xét')->rows(4),
-                    TextInput::make('details.testimonial.name')->label('Người đánh giá')->maxLength(255),
-                    TextInput::make('details.testimonial.role')->label('Chức vụ / đơn vị')->maxLength(255),
-                ]),
                 Section::make('SEO')->schema(SeoFields::make())->columns(1),
             ])->columnSpan(['lg' => 2]),
             Group::make([
                 Section::make('Phân loại & hiển thị')->schema([
                     Select::make('project_category_id')->label('Danh mục')->relationship('category', 'name')->searchable()->preload(),
-                    Select::make('tags')->label('Thẻ')->relationship('tags', 'name')->multiple()->searchable()->preload(),
                     Select::make('status')->label('Trạng thái')->options(['draft' => 'Bản nháp', 'published' => 'Đã xuất bản', 'pending' => 'Chờ duyệt', 'private' => 'Riêng tư'])->required()->default('draft'),
                     DatePicker::make('published_at')->label('Ngày xuất bản'),
                     TextInput::make('sort_order')->label('Thứ tự')->numeric()->integer()->minValue(0)->default(fn (): int => ((int) Project::max('sort_order')) + 1),

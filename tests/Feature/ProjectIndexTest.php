@@ -29,6 +29,7 @@ class ProjectIndexTest extends TestCase
 
         $response = $this->get(route('home'))->assertOk()
             ->assertSee('pf-hero', false)
+            ->assertSee('id="cong-nghe"', false)
             ->assertSee('id="case-study"', false)
             ->assertSee('Tóm tắt nổi bật QA')
             ->assertSee('Tất cả (3)')
@@ -60,19 +61,6 @@ class ProjectIndexTest extends TestCase
                 'Nhóm công trình QA',
                 'aria-current="page"',
             ], false);
-    }
-
-    public function test_detail_uses_the_shared_review_block_and_comment_form(): void
-    {
-        $project = $this->project('Dự án đánh giá QA');
-
-        $this->get(route('slug.show', ['slug' => $project->slug]))->assertOk()
-            ->assertSee('Đánh giá về dự án')
-            ->assertSee('review-layout', false)
-            ->assertSee('star-rating__star', false)
-            ->assertDontSee('d-inline-flex align-items-center fw-semibold gap-1', false)
-            ->assertSee('action="'.route('comments.store', ['type' => $project->getMorphClass(), 'id' => $project->id]).'"', false)
-            ->assertDontSee('project-case__feedback', false);
     }
 
     public function test_category_page_is_a_plain_grid_without_the_portfolio_hero(): void

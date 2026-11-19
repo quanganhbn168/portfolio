@@ -57,8 +57,6 @@ class ProjectController extends Controller
             'category.slugs',
             'curatorMedia',
             'slugs',
-            'faqs' => fn ($query) => $query->active()->ordered(),
-            'approvedComments' => fn ($query) => $query->latest('approved_at')->latest('id'),
         ]);
         $content = ProjectDetailContent::make($project);
         $relatedProjects = Project::query()
@@ -70,25 +68,11 @@ class ProjectController extends Controller
             ->orderByDesc('published_at')
             ->limit(4)
             ->get();
-        $faqItems = $project->faqs
-            ->map(fn ($faq): array => [
-                'question' => $faq->question,
-                'answer' => $faq->answer,
-            ])
-            ->values();
-        $ratedComments = $project->approvedComments
-            ->filter(fn ($comment): bool => $comment->rating !== null)
-            ->values();
 
         return view('frontend.projects.show', compact('project') + [
             'content' => $content,
             'relatedProjects' => $relatedProjects,
             'projectVideoUrl' => filter_var($project->video_url, FILTER_VALIDATE_URL) ? $project->video_url : null,
-            'faqItems' => $faqItems,
-            'ratingSummary' => [
-                'count' => $ratedComments->count(),
-                'average' => $ratedComments->isNotEmpty() ? round((float) $ratedComments->avg('rating'), 1) : null,
-            ],
             'seo' => $this->seo->project($project),
         ]);
     }
@@ -162,11 +146,6 @@ class ProjectController extends Controller
         return [
             'portfolioProjects' => $projects,
             'portfolioFilters' => $filters,
-            'portfolioStats' => [
-                'projects' => Project::query()->published()->count(),
-                'fields' => $filters->where('id', '!=', 0)->count(),
-                'clients' => Project::query()->published()->where('client_name', '!=', '')->distinct()->count('client_name'),
-            ],
             'caseStudy' => $projects->first(),
         ];
     }

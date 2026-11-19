@@ -4,14 +4,10 @@ namespace App\Filament;
 
 use App\Filament\Pages\AdminDashboard;
 use App\Filament\Pages\ManageSettings;
-use App\Filament\Resources\Comments\CommentResource;
 use App\Filament\Resources\ContactRequests\ContactRequestResource;
-use App\Filament\Resources\Faqs\FaqResource;
-use App\Filament\Resources\Menus\MenuResource;
 use App\Filament\Resources\Page\PageResource;
 use App\Filament\Resources\ProjectCategories\ProjectCategoryResource;
 use App\Filament\Resources\Projects\ProjectResource;
-use App\Filament\Resources\Tags\TagResource;
 use Awcodes\Curator\Resources\Media\MediaResource;
 use BezhanSalleh\FilamentShield\Resources\Roles\RoleResource;
 use Filament\Navigation\NavigationBuilder;
@@ -36,8 +32,6 @@ final class AdminNavigation
         return [
             ['Nội dung', false, [
                 PageResource::class => ['Trang', Heroicon::OutlinedDocumentDuplicate],
-                TagResource::class => ['Thẻ', Heroicon::OutlinedHashtag],
-                FaqResource::class => ['Câu hỏi thường gặp', Heroicon::OutlinedQuestionMarkCircle],
             ]],
             ['Dự án', false, [
                 ProjectResource::class => ['Dự án', Heroicon::OutlinedBuildingOffice],
@@ -45,11 +39,9 @@ final class AdminNavigation
             ]],
             ['Khách hàng', false, [
                 ContactRequestResource::class => ['Yêu cầu tư vấn', Heroicon::OutlinedChatBubbleLeftRight],
-                CommentResource::class => ['Bình luận', Heroicon::OutlinedChatBubbleBottomCenterText],
             ]],
             ['Cài đặt', true, [
                 ManageSettings::class => ['Cài đặt website', Heroicon::OutlinedCog6Tooth],
-                MenuResource::class => ['Menu', Heroicon::OutlinedBars3],
                 MediaResource::class => ['Thư viện media', Heroicon::OutlinedPhoto],
                 RoleResource::class => ['Vai trò & quyền', Heroicon::OutlinedShieldCheck],
             ]],

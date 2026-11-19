@@ -46,10 +46,6 @@ class WebsiteSettings extends Settings
 
     public ?int $banner_media_id = null;
 
-    public ?int $header_menu_id = null;
-
-    public ?int $footer_menu_id = null;
-
     public ?int $footer_background_media_id = null;
 
     public ?string $google_maps_embed_url = null;

@@ -2,11 +2,6 @@
 @php
     $hotline = $website->primaryPhone() ?: $website->hotline;
     $heroImage = $caseStudy?->image_webp_url;
-    $stats = collect([
-        ['value' => $portfolioStats['projects'], 'label' => __('Dự án triển khai'), 'icon' => 'fa-layer-group'],
-        ['value' => $portfolioStats['fields'], 'label' => __('Lĩnh vực'), 'icon' => 'fa-shapes'],
-        ['value' => $portfolioStats['clients'], 'label' => __('Khách hàng'), 'icon' => 'fa-handshake'],
-    ])->filter(fn (array $stat): bool => $stat['value'] > 0);
 @endphp
 
 <section class="pf-hero">
@@ -16,17 +11,6 @@
                 <span class="pf-badge">{{ __('Portfolio') }}</span>
                 <h1 class="pf-hero__title">{{ $pageTitle }}</h1>
                 <p class="pf-hero__lead">{{ $pageDescription }}</p>
-
-                @if ($stats->isNotEmpty())
-                    <ul class="pf-stats">
-                        @foreach ($stats as $stat)
-                            <li>
-                                <i class="fa-solid {{ $stat['icon'] }}" aria-hidden="true"></i>
-                                <span><strong>{{ $stat['value'] }}+</strong>{{ $stat['label'] }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
 
                 <div class="d-flex flex-wrap gap-3">
                     <a class="btn btn-primary btn-lg" href="{{ route('contact') }}">{{ __('Liên hệ tư vấn dự án') }} <i class="fa-solid fa-arrow-right ms-1" aria-hidden="true"></i></a>
@@ -69,6 +53,31 @@
                 @endforeach
             </div>
         @endif
+    </div>
+</section>
+
+{{-- Công nghệ & công cụ sử dụng (logo lưu sẵn trong public/images/tech). --}}
+@php
+    $techStack = [
+        'Claude' => 'claude', 'ChatGPT' => 'chatgpt', 'Laravel' => 'laravel', 'Livewire' => 'livewire',
+        'PHP' => 'php', 'MySQL' => 'mysql', 'Tailwind CSS' => 'tailwindcss', 'Bootstrap' => 'bootstrap',
+        'Vite' => 'vite', 'JavaScript' => 'javascript', 'Git' => 'git', 'GitHub' => 'github',
+    ];
+@endphp
+<section class="section-space pt-0" id="cong-nghe">
+    <div class="container">
+        <header class="pf-list__head">
+            <h2>{{ __('Công nghệ sử dụng') }}</h2>
+            <p>{{ __('Bộ công cụ dùng để thiết kế, xây dựng và vận hành các dự án.') }}</p>
+        </header>
+        <ul class="pf-tech">
+            @foreach ($techStack as $name => $icon)
+                <li class="pf-tech__item">
+                    <img src="{{ asset('images/tech/'.$icon.'.svg') }}" alt="" width="40" height="40" loading="lazy">
+                    <span>{{ $name }}</span>
+                </li>
+            @endforeach
+        </ul>
     </div>
 </section>
 

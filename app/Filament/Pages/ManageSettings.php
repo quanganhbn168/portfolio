@@ -77,8 +77,6 @@ class ManageSettings extends Page
             'seo_description' => $website->seo_description,
             'seo_keywords' => $website->seo_keywords,
             'seo_image_media_id' => $website->seo_image_media_id,
-            'header_menu_id' => $website->header_menu_id,
-            'footer_menu_id' => $website->footer_menu_id,
             'footer_background_media_id' => $website->footer_background_media_id,
             'banner_media_id' => $website->banner_media_id,
             'company_name' => $website->company_name,
@@ -237,7 +235,7 @@ class ManageSettings extends Page
         $website->google_maps_embed_url = GoogleMapsUrl::normalizeEmbed($data['google_maps_embed_url'] ?? null)
             ?? $maps->resolveEmbed($website->google_maps_url);
 
-        foreach (['logo_media_id', 'favicon_media_id', 'seo_image_media_id', 'header_menu_id', 'footer_menu_id', 'footer_background_media_id', 'banner_media_id'] as $key) {
+        foreach (['logo_media_id', 'favicon_media_id', 'seo_image_media_id', 'footer_background_media_id', 'banner_media_id'] as $key) {
             $website->{$key} = filled($data[$key] ?? null) ? (int) $data[$key] : null;
         }
 

@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use App\Traits\HasComments;
 use App\Traits\HasCuratorImage;
-use App\Traits\HasFaqs;
 use App\Traits\HasSeoImage;
 use App\Traits\HasSlug;
-use App\Traits\HasTags;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Project extends Model
 {
-    use HasComments, HasFactory, HasFaqs, HasSlug, HasTags;
+    use HasFactory, HasSlug;
     use HasCuratorImage;
     use HasSeoImage;
 
@@ -35,11 +32,6 @@ class Project extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(ProjectCategory::class, 'project_category_id');
-    }
-
-    public function commentsRequireRating(): bool
-    {
-        return true;
     }
 
     public function scopePublished(Builder $query): Builder

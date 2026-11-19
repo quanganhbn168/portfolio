@@ -2,7 +2,6 @@
 
 namespace App\Filament\Pages\Schemas;
 
-use App\Models\Menu;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -35,37 +34,6 @@ final class WebsiteSettingsSchema
                 ->schema([
                     CuratorPicker::make('footer_background_media_id')->label('Ảnh nền footer')->disk('public')->constrained()->acceptedFileTypes(['image/*'])->helperText('Tải lên hoặc chọn ảnh nền. Ảnh có lớp phủ tối để dễ đọc chữ; để trống dùng nền hiện tại.'),
                 ]),
-            Section::make('Menu hiển thị')
-                ->icon(Heroicon::OutlinedBars3)
-                ->schema([
-                    Select::make('header_menu_id')
-                        ->label('Menu header')
-                        ->options(fn (): array => self::menuOptions())
-                        ->searchable()
-                        ->preload()
-                        ->placeholder('Chọn menu cho header'),
-                    Select::make('footer_menu_id')
-                        ->label('Menu footer')
-                        ->options(fn (): array => self::menuOptions())
-                        ->searchable()
-                        ->preload()
-                        ->placeholder('Chọn menu cho footer'),
-                ])
-                ->columns(2),
         ];
-    }
-
-    /** @return array<int, string> */
-    private static function menuOptions(): array
-    {
-        return Menu::query()
-            ->orderBy('name')
-            ->get()
-            ->mapWithKeys(fn (Menu $menu): array => [
-                $menu->getKey() => $menu->location
-                    ? $menu->name.' · '.$menu->location
-                    : $menu->name,
-            ])
-            ->all();
     }
 }

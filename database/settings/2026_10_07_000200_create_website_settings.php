@@ -26,8 +26,6 @@ return new class extends SettingsMigration
         $this->migrator->add('website.company_profile_media_id', NULL);
         $this->migrator->add('website.about_image_media_id', NULL);
         $this->migrator->add('website.banner_media_id', NULL);
-        $this->migrator->add('website.header_menu_id', NULL);
-        $this->migrator->add('website.footer_menu_id', NULL);
         $this->migrator->add('website.footer_background_media_id', NULL);
         $this->migrator->add('website.google_maps_embed_url', NULL);
         $this->migrator->add('website.google_maps_url', NULL);

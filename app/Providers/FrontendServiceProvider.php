@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Menu;
-use App\Models\MenuItem;
 use App\Models\Page;
 use App\Models\Project;
 use App\Models\ProjectCategory;
@@ -69,7 +67,6 @@ class FrontendServiceProvider extends ServiceProvider
         }
 
         RateLimiter::for('frontend-contact', fn ($request) => Limit::perMinute(5)->by((string) $request->ip()));
-        RateLimiter::for('frontend-comment', fn ($request) => Limit::perMinute(3)->by((string) $request->ip()));
 
         // Console commands must be able to boot before the website database exists.
         if ($this->app->runningInConsole() && ! filter_var(env('APP_TESTING_HTTP', false), FILTER_VALIDATE_BOOL)) {
@@ -112,16 +109,6 @@ class FrontendServiceProvider extends ServiceProvider
         ]);
 
         View::composer('partials.footer', function (BladeView $view) use ($website): void {
-            $footerMenu = Menu::query()
-                ->where('is_active', true)
-                ->with('items')
-                ->when(
-                    filled($website->footer_menu_id),
-                    fn (Builder $query) => $query->whereKey($website->footer_menu_id),
-                    fn (Builder $query) => $query->where('location', 'footer'),
-                )
-                ->first();
-
             // Chính sách / điều khoản chỉ hiện khi đã tạo trang tương ứng trong mục Trang.
             $footerLegal = Page::query()
                 ->where('type', Page::TYPE_CUSTOM)
@@ -143,33 +130,13 @@ class FrontendServiceProvider extends ServiceProvider
 
             $view->with('footerPages', $footerPages)
                 ->with('footerLegal', $footerLegal)
-                ->with('footerNavigation', $footerMenu?->items
-                    ->whereNull('parent_id')
-                    ->map(fn (MenuItem $item): array => $this->menuItemData($item, $footerMenu->items))
-                    ->values()
-                    ?? collect());
+                ->with('footerNavigation', $this->mainNavigation());
         });
 
         View::composer('partials.header', function (BladeView $view) use ($media, $website): void {
-            $headerMenu = Menu::query()
-                ->where('is_active', true)
-                ->with('items')
-                ->when(
-                    filled($website->header_menu_id),
-                    fn (Builder $query) => $query->whereKey($website->header_menu_id),
-                    fn (Builder $query) => $query->where('location', 'header'),
-                )
-                ->first();
-
-            $headerNavigation = $headerMenu?->items
-                ->whereNull('parent_id')
-                ->map(fn (MenuItem $item): array => $this->menuItemData($item, $headerMenu->items))
-                ->values()
-                ?? collect();
-
             $view->with([
                 'headerLogoUrl' => MediaUrl::versioned($media->get($website->logo_media_id)),
-                'headerNavigation' => $headerNavigation,
+                'headerNavigation' => $this->mainNavigation(),
                 'headerPhones' => $this->headerPhones($website),
             ]);
         });
@@ -212,56 +179,20 @@ class FrontendServiceProvider extends ServiceProvider
             ->values();
     }
 
-    /** @return array{label: string, url: string, target: string, is_active: bool, home: bool, has_children: bool, children: Collection<int, array<string, mixed>>} */
-    private function menuItemData(MenuItem $item, Collection $allItems): array
+    /** @return Collection<int, array<string, mixed>> */
+    private function mainNavigation(): Collection
     {
-        $link = $item->link;
-        $isActive = $this->menuItemMatchesCurrentRoute($item);
-        $children = $allItems
-            ->where('parent_id', $item->getKey())
-            ->map(fn (MenuItem $child): array => $this->menuItemData($child, $allItems))
-            ->values();
-
-        return [
-            'label' => $item->label,
-            'url' => $link,
-            'target' => $item->target ?: '_self',
-            'is_active' => $isActive || $children->contains('is_active', true),
-            'home' => false,
-            'has_children' => $children->isNotEmpty(),
-            'children' => $children,
-        ];
-    }
-
-    private function menuItemMatchesCurrentRoute(MenuItem $item): bool
-    {
-        $linkedSourceType = (string) $item->linked_source_type;
-
-        if ($linkedSourceType === 'native_route') {
-            $routeName = trim((string) $item->getRawOriginal('url'));
-
-            return $routeName !== ''
-                && (request()->routeIs($routeName) || request()->attributes->get('frontend.menu_route') === $routeName);
-        }
-
-        $target = match ($linkedSourceType) {
-            'native_project', Project::class, 'project' => [Project::class, 'slug.show'],
-            'native_project_category', ProjectCategory::class, 'project-category' => [ProjectCategory::class, 'slug.show'],
-            'native_site_page', Page::class, 'site_page' => [Page::class, 'slug.show'],
-            default => null,
-        };
-
-        if ($target === null || ! request()->routeIs($target[1])) {
-            return false;
-        }
-
-        $routeParameter = $target[2] ?? 'slug';
-        $currentRouteValue = request()->route($routeParameter);
-        $currentSlug = $currentRouteValue instanceof Model
-            ? (string) ($currentRouteValue->slug ?? $currentRouteValue->getRouteKey())
-            : (string) $currentRouteValue;
-
-        return $currentSlug !== ''
-            && (string) ($target[0]::query()->find($item->linked_source_id)?->slug ?? '') === $currentSlug;
+        return collect([
+            [__('Trang chủ'), route('home'), request()->routeIs('home', 'slug.show')],
+            [__('Giới thiệu'), route('about'), request()->routeIs('about')],
+            [__('Liên hệ'), route('contact'), request()->routeIs('contact')],
+        ])->map(fn (array $item): array => [
+            'label' => $item[0],
+            'url' => $item[1],
+            'target' => '_self',
+            'is_active' => $item[2],
+            'has_children' => false,
+            'children' => collect(),
+        ]);
     }
 }

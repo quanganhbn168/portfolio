@@ -28,7 +28,6 @@
             @if (count($content['solution']['items']) || filled($content['solution']['description'] ?? null) || $content['solution']['image_url'])<a href="#giai-phap-du-an"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>{{ __('Giải pháp triển khai') }}</a>@endif
             @if (count($content['scope']['items']))<a href="#hang-muc"><i class="fa-solid fa-gears" aria-hidden="true"></i>{{ __('Hạng mục thi công') }}</a>@endif
             @if (count($content['construction']['images']))<a href="#hinh-anh-du-an"><i class="fa-regular fa-image" aria-hidden="true"></i>{{ __('Hình ảnh thực tế') }}</a>@endif
-            @if (count($content['results']['items']))<a href="#ket-qua"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>{{ __('Kết quả') }}</a>@endif
             @if ($relatedProjects->isNotEmpty())<a href="#du-an-lien-quan"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i>{{ __('Dự án liên quan') }}</a>@endif
         </div>
     </nav>
@@ -132,34 +131,6 @@
     </section>
 
     @endif
-    @if (count($content['results']['items']))
-    <section id="ket-qua" class="project-case__section project-case__band">
-        <div class="container project-case__band-grid">
-            <div>@include('frontend.projects.partials.section-heading', ['section' => ['label' => __('Kết quả đạt được'), 'title' => __('Hiệu quả sau bàn giao')]])</div>
-            <div class="project-case__tiles project-case__tiles--four">
-                @foreach ($content['results']['items'] as $item)
-                    <article class="project-case__tile"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><h3 class="project-case__result-title">{{ $item['title'] }}</h3><p>{{ $item['description'] ?? '' }}</p></article>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    @endif
-    @if (filled($content['testimonial']['quote'] ?? null))
-    <section class="project-case__section project-case__quote">
-        <div class="container row align-items-center g-4 mx-auto">
-            <div class="col-12">
-                <div class="d-flex gap-4">
-                    <i class="fa-solid fa-quote-left project-case__quote-icon" aria-hidden="true"></i>
-                    <div><blockquote>{{ $content['testimonial']['quote'] }}</blockquote><div class="d-flex align-items-center gap-3">
-                        <div><strong>{{ $content['testimonial']['name'] ?? '' }}</strong><small class="d-block text-body-secondary">{{ $content['testimonial']['role'] ?? '' }}</small></div>
-                    </div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-    @endif
-
     @if ($relatedProjects->isNotEmpty())
     <section id="du-an-lien-quan" class="project-case__section">
         <div class="container">
@@ -176,43 +147,6 @@
         </div>
     </section>
 
-    @endif
-    @include('frontend.partials.reviews', [
-        'commentable' => $project,
-        'ratingSummary' => $ratingSummary,
-        'heading' => __('Đánh giá về dự án'),
-    ])
-
-    @if ($faqItems->isNotEmpty())
-        <section class="section-space bg-light border-top" id="cau-hoi-thuong-gap">
-            <div class="container">
-                <div class="row g-4 g-lg-5">
-                    <div class="col-lg-4">
-                        <h2 class="display-title h2">{{ __('Câu hỏi thường gặp') }}</h2>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="accordion" id="projectFaq">
-                            @foreach ($faqItems as $item)
-                                <div class="accordion-item">
-                                    <h3 class="accordion-header">
-                                        <button class="accordion-button @unless ($loop->first) collapsed @endunless"
-                                            type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#project-faq-{{ $loop->index }}"
-                                            aria-controls="project-faq-{{ $loop->index }}"
-                                            aria-expanded="{{ $loop->first ? 'true' : 'false' }}">{{ $item['question'] }}</button>
-                                    </h3>
-                                    <div id="project-faq-{{ $loop->index }}"
-                                        class="accordion-collapse collapse @if ($loop->first) show @endif"
-                                        data-bs-parent="#projectFaq">
-                                        <div class="accordion-body text-body">{{ $item['answer'] }}</div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     @endif
 </div>
 @endsection

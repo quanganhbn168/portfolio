@@ -30,8 +30,6 @@ final class WebsiteSettingsSeeder extends Seeder
             'company_profile_media_id' => null,
             'about_image_media_id' => null,
             'banner_media_id' => null,
-            'header_menu_id' => null,
-            'footer_menu_id' => null,
             'footer_background_media_id' => null,
             'google_maps_embed_url' => null,
             'google_maps_url' => null,

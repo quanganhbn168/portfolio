@@ -17,7 +17,7 @@ final class ProjectDetailContent
         $media = Media::whereKey(array_unique([...$galleryIds, ...$constructionIds, ...(is_numeric($solutionId) ? [(int) $solutionId] : [])]))->get()->keyBy('id');
         $images = fn (array $ids) => collect($ids)->map(fn ($id) => $media->get($id))
             ->filter()->map(fn ($image) => ['url' => MediaUrl::webp($image, 1600), 'alt' => $image->alt ?: $project->title])->values()->all();
-        foreach (['challenges', 'scope', 'results'] as $section) {
+        foreach (['challenges', 'scope'] as $section) {
             $details[$section]['items'] = collect(data_get($details, $section.'.items', []))
                 ->filter(fn ($item) => is_array($item) && filled($item['title'] ?? null))
                 ->values()->all();
@@ -25,7 +25,6 @@ final class ProjectDetailContent
         $details['solution'] ??= [];
         $details['solution']['image_url'] = is_numeric($solutionId) ? MediaUrl::webp($media->get((int) $solutionId), 1200) : null;
         $details['solution']['items'] = collect(data_get($details, 'solution.items', []))->filter(fn ($item) => filled($item['text'] ?? null))->values()->all();
-        $details['testimonial'] ??= [];
         $details['gallery'] = $images($galleryIds);
         $details['construction'] ??= [];
         $details['construction']['images'] = $images($constructionIds);

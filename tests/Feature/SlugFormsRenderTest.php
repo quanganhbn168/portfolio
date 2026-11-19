@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Filament\Resources\Page\Pages\CreatePage;
 use App\Filament\Resources\ProjectCategories\Pages\CreateProjectCategory;
 use App\Filament\Resources\Projects\Pages\CreateProject;
-use App\Filament\Resources\Tags\Pages\CreateTag;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,7 +24,6 @@ class SlugFormsRenderTest extends TestCase
             CreatePage::class,
             CreateProjectCategory::class,
             CreateProject::class,
-            CreateTag::class,
         ])->mapWithKeys(fn (string $page) => [class_basename($page) => [$page]])->all();
     }
 
