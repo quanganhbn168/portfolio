@@ -11,6 +11,7 @@ class CrawlSettings extends Settings
     public const SITEMAP_SECTIONS = [
         'pages' => 'Trang chính (trang chủ, danh sách, giới thiệu, liên hệ)',
         'projects' => 'Dự án',
+        'posts' => 'Bài viết blog',
         'site_pages' => 'Trang tự tạo',
     ];
 

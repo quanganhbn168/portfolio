@@ -42,6 +42,12 @@ class WebsiteSettings extends Settings
 
     public ?int $owner_media_id = null;
 
+    public ?int $owner_cover_media_id = null;
+
+    public string $owner_workplace = '';
+
+    public string $owner_location = '';
+
     public string $github_url = '';
 
     public string $tiktok_url = '';

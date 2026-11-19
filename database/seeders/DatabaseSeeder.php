@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             SystemPageSeeder::class,
             ProjectCategorySeeder::class,
             ProjectSeeder::class,
+            PostSeeder::class,
         ]);
 
         // Tạo robots.txt và sitemap.xml tĩnh trong public từ dữ liệu vừa seed.

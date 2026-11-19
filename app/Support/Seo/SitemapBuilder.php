@@ -3,6 +3,7 @@
 namespace App\Support\Seo;
 
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\Project;
 use App\Settings\CrawlSettings;
 use DateTimeInterface;
@@ -77,6 +78,7 @@ class SitemapBuilder
     {
         foreach ([
             ['home', 'weekly', 1.0],
+            ['posts.index', 'weekly', 0.8],
             ['about', 'monthly', 0.6],
             ['contact', 'monthly', 0.5],
         ] as [$route, $frequency, $priority]) {
@@ -88,6 +90,7 @@ class SitemapBuilder
     {
         foreach ([
             ['projects', Project::class, 'monthly', 0.8],
+            ['posts', Post::class, 'monthly', 0.7],
         ] as [$section, $model, $frequency, $priority]) {
             if (! $this->crawl->sitemapIncludes($section)) {
                 continue;
@@ -97,9 +100,9 @@ class SitemapBuilder
                 ->published()
                 ->with('slugs')
                 ->get()
-                ->each(function (Project $item) use ($frequency, $priority): void {
+                ->each(function (Project|Post $item) use ($frequency, $priority): void {
                     $url = match (true) {
-                        $item instanceof Project => route('slug.show', ['slug' => $item->slug]),
+                        $item instanceof Project, $item instanceof Post => route('slug.show', ['slug' => $item->slug]),
                     };
 
                     if ($url !== '') {

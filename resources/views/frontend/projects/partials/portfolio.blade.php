@@ -5,24 +5,66 @@
 
 @if (filled($website->owner_name) || filled($website->owner_bio))
     @php
-        $ownerImage = \App\Support\Media\MediaUrl::webp($websiteMedia->get($website->owner_media_id), 640);
+        $ownerImage = \App\Support\Media\MediaUrl::webp($websiteMedia->get($website->owner_media_id), 480);
+        $coverImage = \App\Support\Media\MediaUrl::webp($websiteMedia->get($website->owner_cover_media_id), 1600);
+        $contactEmail = $website->contact_email;
     @endphp
     <section class="section-space pb-0" id="toi-la-ai">
         <div class="container">
-            <div class="pf-owner-card">
-                @if ($ownerImage)
-                    <img class="pf-owner-card__avatar" src="{{ $ownerImage }}" alt="{{ $website->owner_name }}" width="200" height="200" loading="lazy">
-                @endif
-                <div class="pf-owner-card__body">
-                    <span class="pf-badge">{{ __('Tôi là ai') }}</span>
-                    <h2>{{ $website->owner_name }}</h2>
-                    @if ($website->owner_title)<p class="pf-owner-card__role">{{ $website->owner_title }}</p>@endif
-                    @if ($website->owner_bio)<p class="pf-owner-card__bio">{!! nl2br(e($website->owner_bio)) !!}</p>@endif
-                    <div class="d-flex flex-wrap align-items-center gap-3">
-                        @include('partials.socials', ['class' => 'pf-owner-card__socials'])
+            <article class="fb-profile">
+                <div class="fb-profile__cover">
+                    @if ($coverImage)
+                        <img src="{{ $coverImage }}" alt="" fetchpriority="high">
+                    @endif
+                </div>
+
+                <div class="fb-profile__head">
+                    @if ($ownerImage)
+                        <img class="fb-profile__avatar" src="{{ $ownerImage }}" alt="{{ $website->owner_name }}" width="176" height="176">
+                    @endif
+                    <div class="fb-profile__id">
+                        <h2>{{ $website->owner_name }}</h2>
+                        @if ($website->owner_title)<p class="fb-profile__role">{{ $website->owner_title }}</p>@endif
+                        <p class="fb-profile__counts">
+                            <span><strong>{{ $portfolioProjects->count() }}</strong> {{ __('dự án') }}</span>
+                            <span><strong>{{ $latestPosts->count() ? \App\Models\Post::query()->published()->count() : 0 }}</strong> {{ __('bài viết') }}</span>
+                        </p>
+                    </div>
+                    <div class="fb-profile__actions">
+                        <a class="btn btn-primary" href="{{ route('contact') }}"><i class="fa-regular fa-envelope me-2" aria-hidden="true"></i>{{ __('Nhắn tin') }}</a>
                         @if ($servicesLink)
-                            <a class="btn btn-primary" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
+                            <a class="btn btn-secondary-soft" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
                         @endif
+                    </div>
+                </div>
+
+                <nav class="fb-profile__tabs" aria-label="{{ __('Điều hướng trang cá nhân') }}">
+                    <a class="is-active" href="#toi-la-ai">{{ __('Giới thiệu') }}</a>
+                    <a href="#du-an-da-trien-khai">{{ __('Dự án') }}</a>
+                    @if ($latestPosts->isNotEmpty())<a href="#bai-viet">{{ __('Blog') }}</a>@endif
+                    <a href="#cong-nghe">{{ __('Công nghệ') }}</a>
+                    <a href="{{ route('contact') }}">{{ __('Liên hệ') }}</a>
+                </nav>
+            </article>
+
+            <div class="row g-4 fb-body">
+                <aside class="col-lg-4">
+                    <div class="fb-card">
+                        <h3>{{ __('Giới thiệu') }}</h3>
+                        <ul class="fb-info">
+                            @if ($website->owner_workplace)<li><i class="fa-solid fa-briefcase" aria-hidden="true"></i><span>{{ __('Làm việc tại') }} <strong>{{ $website->owner_workplace }}</strong></span></li>@endif
+                            @if ($website->owner_location)<li><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>{{ __('Sống tại') }} <strong>{{ $website->owner_location }}</strong></span></li>@endif
+                            @if ($servicesLink)<li><i class="fa-solid fa-globe" aria-hidden="true"></i><a href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['host'] }}</a></li>@endif
+                            @if ($contactEmail)<li><i class="fa-regular fa-envelope" aria-hidden="true"></i><a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a></li>@endif
+                            @if ($hotline)<li><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:{{ preg_replace('/[^\d+]/', '', $hotline) }}">{{ $hotline }}</a></li>@endif
+                        </ul>
+                        @include('partials.socials', ['class' => 'fb-socials'])
+                    </div>
+                </aside>
+                <div class="col-lg-8">
+                    <div class="fb-card">
+                        <h3>{{ __('Về tôi') }}</h3>
+                        @if ($website->owner_bio)<p class="fb-bio">{!! nl2br(e($website->owner_bio)) !!}</p>@endif
                     </div>
                 </div>
             </div>
@@ -59,6 +101,23 @@
         @endif
     </div>
 </section>
+
+@if ($latestPosts->isNotEmpty())
+    <section class="section-space pt-0" id="bai-viet">
+        <div class="container">
+            <header class="pf-list__head">
+                <h2>{{ __('Bài viết mới') }}</h2>
+                <p>{{ __('Chia sẻ kinh nghiệm làm web, lập trình và vận hành dự án.') }}</p>
+            </header>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach ($latestPosts as $post)
+                    <div class="col">@include('frontend.partials.post-card')</div>
+                @endforeach
+            </div>
+            <p class="text-center mt-4"><a class="btn btn-outline-secondary" href="{{ route('posts.index') }}">{{ __('Xem tất cả bài viết') }} <i class="fa-solid fa-arrow-right ms-1" aria-hidden="true"></i></a></p>
+        </div>
+    </section>
+@endif
 
 {{-- Công nghệ & công cụ sử dụng (logo lưu sẵn trong public/images/tech). --}}
 @php

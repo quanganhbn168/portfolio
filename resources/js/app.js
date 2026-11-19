@@ -65,6 +65,20 @@ function initialiseGalleries() {
     });
 }
 
+function initialiseProfileTabs() {
+    const links = [...document.querySelectorAll('.fb-profile__tabs a[href^="#"]')];
+    if (!links.length || !('IntersectionObserver' in window)) return;
+
+    const targets = links.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+        entries.filter((entry) => entry.isIntersecting).forEach((entry) => {
+            links.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === '#' + entry.target.id));
+        });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+
+    targets.forEach((target) => observer.observe(target));
+}
+
 function initialiseAos() {
     const elements = document.querySelectorAll('[data-aos]');
     if (!elements.length) return;
@@ -115,6 +129,7 @@ function initialiseCountUp() {
 
 function initialise() {
     initialiseAos();
+    initialiseProfileTabs();
     initialiseCountUp();
     initialiseGalleries();
     initialiseHeader();

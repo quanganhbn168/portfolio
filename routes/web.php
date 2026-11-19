@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\LanguageController;
+use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\Frontend\ProjectController;
 use App\Http\Controllers\Frontend\PublicSlugController;
 use App\Support\Branding\FaviconService;
@@ -20,6 +21,7 @@ Route::post('/language/{locale}', LanguageController::class)->name('language.swi
 Route::group([], function (): void {
     Route::get('/', [ProjectController::class, 'index'])->name('home');
     Route::redirect('/projects', '/')->name('projects.index');
+    Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
     Route::get('/about', AboutController::class)->name('about');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:frontend-contact')->name('contact.store');

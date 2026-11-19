@@ -6,6 +6,7 @@ use App\Filament\Pages\AdminDashboard;
 use App\Filament\Pages\ManageSettings;
 use App\Filament\Resources\ContactRequests\ContactRequestResource;
 use App\Filament\Resources\Page\PageResource;
+use App\Filament\Resources\Posts\PostResource;
 use App\Filament\Resources\ProjectCategories\ProjectCategoryResource;
 use App\Filament\Resources\Projects\ProjectResource;
 use Awcodes\Curator\Resources\Media\MediaResource;
@@ -32,6 +33,9 @@ final class AdminNavigation
         return [
             ['Nội dung', false, [
                 PageResource::class => ['Trang', Heroicon::OutlinedDocumentDuplicate],
+            ]],
+            ['Blog', false, [
+                PostResource::class => ['Bài viết', Heroicon::OutlinedNewspaper],
             ]],
             ['Dự án', false, [
                 ProjectResource::class => ['Dự án', Heroicon::OutlinedBuildingOffice],

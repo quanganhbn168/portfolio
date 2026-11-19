@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Support\Media\MediaUrl;
@@ -146,6 +147,7 @@ class ProjectController extends Controller
         return [
             'portfolioProjects' => $projects,
             'portfolioFilters' => $filters,
+            'latestPosts' => Post::query()->published()->with(['curatorMedia', 'slugs'])->orderByDesc('published_at')->limit(3)->get(),
         ];
     }
 

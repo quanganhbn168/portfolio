@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\User;
@@ -31,6 +32,7 @@ class FrontendServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'page' => Page::class,
+            'post' => Post::class,
             'project' => Project::class,
             'project-category' => ProjectCategory::class,
             'user' => User::class,
@@ -38,6 +40,7 @@ class FrontendServiceProvider extends ServiceProvider
 
         foreach ([
             Page::class,
+            Post::class,
             Project::class,
         ] as $model) {
             $model::observe(SitemapObserver::class);
@@ -45,6 +48,7 @@ class FrontendServiceProvider extends ServiceProvider
 
         foreach ([
             Page::class,
+            Post::class,
             Project::class,
             ProjectCategory::class,
         ] as $model) {
@@ -62,6 +66,7 @@ class FrontendServiceProvider extends ServiceProvider
             Project::class,
             ProjectCategory::class,
             Page::class,
+            Post::class,
         ] as $model) {
             $model::observe(ContentSeoFallbackObserver::class);
         }
@@ -82,6 +87,8 @@ class FrontendServiceProvider extends ServiceProvider
             $website->banner_media_id,
             $website->footer_background_media_id,
             $website->owner_media_id,
+            $website->owner_cover_media_id,
+            $website->owner_cover_media_id,
         ]));
 
         $media = $mediaIds === []
@@ -189,8 +196,9 @@ class FrontendServiceProvider extends ServiceProvider
     private function mainNavigation(): Collection
     {
         return collect([
-            [__('Trang chủ'), route('home'), request()->routeIs('home', 'slug.show')],
+            [__('Trang chủ'), route('home'), request()->routeIs('home') || request()->attributes->get('frontend.menu_route') === 'projects.index'],
             [__('Giới thiệu'), route('about'), request()->routeIs('about')],
+            [__('Blog'), route('posts.index'), request()->routeIs('posts.index')],
             [__('Liên hệ'), route('contact'), request()->routeIs('contact')],
         ])->map(fn (array $item): array => [
             'label' => $item[0],

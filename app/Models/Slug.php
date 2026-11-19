@@ -14,6 +14,7 @@ class Slug extends Model
         'projects',
         'products',
         'about',
+        'blog',
         'contact',
         'news',
         'careers',

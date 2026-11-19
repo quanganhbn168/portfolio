@@ -75,7 +75,10 @@ final class ContactSettingsSchema
                 ->schema([
                     TextInput::make('owner_name')->label('Họ tên')->maxLength(120),
                     TextInput::make('owner_title')->label('Chức danh')->maxLength(160),
+                    TextInput::make('owner_workplace')->label('Làm việc tại')->maxLength(160),
+                    TextInput::make('owner_location')->label('Sống tại')->maxLength(160),
                     Textarea::make('owner_bio')->label('Giới thiệu ngắn')->rows(5)->maxLength(1200)->columnSpanFull(),
+                    CuratorPicker::make('owner_cover_media_id')->label('Ảnh bìa (rộng, tỉ lệ khoảng 3:1)')->disk('public')->constrained()->acceptedFileTypes(['image/*']),
                     CuratorPicker::make('owner_media_id')->label('Ảnh đại diện')->disk('public')->constrained()->acceptedFileTypes(['image/*']),
                 ])
                 ->columns(2),

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Filament\Resources\Page\Pages\CreatePage;
+use App\Filament\Resources\Posts\Pages\CreatePost;
 use App\Filament\Resources\ProjectCategories\Pages\CreateProjectCategory;
 use App\Filament\Resources\Projects\Pages\CreateProject;
 use App\Models\User;
@@ -23,6 +24,7 @@ class SlugFormsRenderTest extends TestCase
         return collect([
             CreatePage::class,
             CreateProjectCategory::class,
+            CreatePost::class,
             CreateProject::class,
         ])->mapWithKeys(fn (string $page) => [class_basename($page) => [$page]])->all();
     }

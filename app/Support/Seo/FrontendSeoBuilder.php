@@ -2,6 +2,7 @@
 
 namespace App\Support\Seo;
 
+use App\Models\Post;
 use App\Models\Project;
 use App\Settings\WebsiteSettings;
 use Awcodes\Curator\Models\Media;
@@ -154,6 +155,41 @@ class FrontendSeoBuilder
                     ['name' => __('Trang chủ'), 'url' => route('home')],
                     ['name' => __('Dự án'), 'url' => route('projects.index')],
                     ['name' => $project->title, 'url' => $canonical],
+                ]),
+            ],
+        );
+    }
+
+    public function post(Post $post): array
+    {
+        $canonical = route('slug.show', ['slug' => $post->slug]);
+        $title = $post->seo_title ?: $post->title.' | '.$this->website->site_name;
+        $description = $post->seo_description ?: $post->excerpt ?: $post->title;
+
+        return $this->page(
+            title: $title,
+            description: $description,
+            canonical: $canonical,
+            image: $post->seoImageUrl($post->image_url),
+            type: 'article',
+            schema: [
+                $this->organizationSchema(),
+                [
+                    '@type' => 'BlogPosting',
+                    '@id' => $canonical.'#post',
+                    'headline' => $post->title,
+                    'description' => $this->description($description),
+                    'url' => $canonical,
+                    'inLanguage' => $this->languageTag(),
+                    'datePublished' => ($post->published_at ?: $post->created_at)->toAtomString(),
+                    'dateModified' => $post->updated_at->toAtomString(),
+                    'author' => ['@id' => $this->baseUrl().'#organization'],
+                    ...$this->imageProperty($post->image_url),
+                ],
+                $this->breadcrumb([
+                    ['name' => __('Trang chủ'), 'url' => route('home')],
+                    ['name' => __('Blog'), 'url' => route('posts.index')],
+                    ['name' => $post->title, 'url' => $canonical],
                 ]),
             ],
         );

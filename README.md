@@ -7,7 +7,8 @@ Website portfolio giới thiệu các dự án đã triển khai (website, landi
 | Đường dẫn | Nội dung |
 |-----------|----------|
 | `/` | Portfolio: hero + số liệu, tab lọc theo lĩnh vực (kèm số lượng), lưới dự án, case study, CTA |
-| `/{slug}` | Chi tiết dự án hoặc danh mục dự án |
+| `/blog` | Blog cá nhân (danh sách, phân trang); bài viết ở `/{slug}` |
+| `/{slug}` | Chi tiết dự án, danh mục dự án hoặc bài viết blog |
 | `/about` | Giới thiệu |
 | `/contact` | Form liên hệ (lưu vào admin, gửi email nếu có cấu hình) |
 

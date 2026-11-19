@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PageController;
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\Slug;
@@ -33,6 +34,7 @@ class PublicSlugController extends Controller
         // để mục "Năng lực", "Dự án"... sáng lên cả khi khách đang ở trang con.
         $request->attributes->set('frontend.menu_route', match (true) {
             $sluggable instanceof Project, $sluggable instanceof ProjectCategory => 'projects.index',
+            $sluggable instanceof Post => 'posts.index',
             default => null,
         });
 
@@ -40,6 +42,7 @@ class PublicSlugController extends Controller
             $sluggable instanceof Page => app(PageController::class)->show($sluggable),
             $sluggable instanceof Project => app(ProjectController::class)->show($sluggable),
             $sluggable instanceof ProjectCategory => app(ProjectController::class)->category($sluggable, $request),
+            $sluggable instanceof Post => app(PostController::class)->show($sluggable),
             default => abort(404),
         };
     }

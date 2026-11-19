@@ -23,6 +23,9 @@ return new class extends SettingsMigration
         $this->migrator->add('website.owner_title', '');
         $this->migrator->add('website.owner_bio', '');
         $this->migrator->add('website.owner_media_id', null);
+        $this->migrator->add('website.owner_cover_media_id', null);
+        $this->migrator->add('website.owner_workplace', '');
+        $this->migrator->add('website.owner_location', '');
         $this->migrator->add('website.github_url', '');
         $this->migrator->add('website.tiktok_url', '');
         $this->migrator->add('website.telegram_url', '');
