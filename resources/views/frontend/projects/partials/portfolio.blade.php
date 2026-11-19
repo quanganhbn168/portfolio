@@ -92,6 +92,9 @@
                         <p>{{ $caseStudy->excerpt }}</p>
                     @endif
                     <a class="btn btn-primary" href="{{ route('slug.show', ['slug' => $caseStudy->slug]) }}">{{ __('Xem chi tiết case study') }} <i class="fa-solid fa-arrow-right ms-1" aria-hidden="true"></i></a>
+                    @if ($caseStudy->website_url)
+                        <a class="btn btn-outline-secondary ms-2" href="{{ $caseStudy->website_url }}" target="_blank" rel="noopener noreferrer">{{ __('Xem website thực tế') }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
+                    @endif
                 </div>
                 @if ($heroImage)
                     <div class="pf-case__media"><img src="{{ $caseStudy->image_card_url }}" alt="" loading="lazy"></div>

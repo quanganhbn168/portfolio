@@ -17,6 +17,7 @@
                     @if ($project->category)<span class="project-case__badge">{{ $project->category->name }}</span>@endif
                     <h1 class="text-white">{{ $project->title }}</h1>
                     @if ($project->excerpt)<p>{{ $project->excerpt }}</p>@endif
+                    @if ($project->website_url)<a class="btn btn-primary btn-lg mt-3" href="{{ $project->website_url }}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square me-2" aria-hidden="true"></i>{{ __('Xem website thực tế') }}</a>@endif
                 </div>
             </div>
         </div>

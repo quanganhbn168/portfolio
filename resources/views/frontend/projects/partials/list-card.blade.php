@@ -34,6 +34,11 @@
                 @endforeach
             </dl>
         @endif
-        <a class="project-tile__more" href="{{ $url }}" aria-hidden="true" tabindex="-1">{{ __('Xem chi tiết') }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        <div class="project-tile__actions">
+            <a class="project-tile__more" href="{{ $url }}">{{ __('Xem chi tiết') }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            @if ($project->website_url)
+                <a class="project-tile__live" href="{{ $project->website_url }}" target="_blank" rel="noopener noreferrer">{{ __('Xem website') }} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            @endif
+        </div>
     </div>
 </article>

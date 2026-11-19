@@ -282,3 +282,23 @@
     height: 2.5rem;
     object-fit: contain;
 }
+
+.project-tile__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem 1rem;
+    margin-top: auto;
+}
+
+.project-tile__live {
+    color: var(--brand-secondary-strong);
+    font-size: .9rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.project-tile__live:hover {
+    text-decoration: underline;
+}

@@ -42,6 +42,7 @@ final class ProjectForm
                     TextInput::make('details.hero.budget')->label('Kinh phí')->maxLength(255),
                     TextInput::make('details.overview.period')->label('Thời gian thực hiện')->maxLength(255),
                     DatePicker::make('completed_at')->label('Ngày hoàn thành'),
+                    TextInput::make('website_url')->label('Link website thực tế')->url()->maxLength(1024)->helperText('Khách hàng bấm vào để xem dự án đang chạy thật.'),
                     TextInput::make('video_url')->label('Video dự án')->url(),
                     self::image('curator_media_id', 'Ảnh đại diện')->relationship('curatorMedia', 'id'),
                 ]),

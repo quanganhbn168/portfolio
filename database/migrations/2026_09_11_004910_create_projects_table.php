@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('industry')->nullable();
             $table->text('excerpt')->nullable();
             $table->longText('body')->nullable();
+            $table->string('website_url', 1024)->nullable();
             $table->string('video_url', 1024)->nullable();
             $table->date('completed_at')->nullable();
             $table->string('status', 32)->default('draft')->index();
