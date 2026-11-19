@@ -27,8 +27,13 @@ class ProjectIndexTest extends TestCase
         $this->project('Dự án nhóm con QA', ['project_category_id' => $child->id]);
         $this->project('Dự án nhóm hai QA', ['project_category_id' => $second->id]);
 
+        $website = app(\App\Settings\WebsiteSettings::class);
+        $website->owner_name = 'Chủ site QA';
+        $website->save();
+
         $response = $this->get(route('home'))->assertOk()
             ->assertSee('id="toi-la-ai"', false)
+            ->assertSee('Chủ site QA')
             ->assertSee('id="cong-nghe"', false)
             ->assertSee('Tóm tắt nổi bật QA')
             ->assertSee('<span class="pf-tab__count">3</span>', false)
