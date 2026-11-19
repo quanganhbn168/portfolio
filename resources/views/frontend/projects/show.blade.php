@@ -1,14 +1,13 @@
 @extends('layouts.master')
 
 @push('styles')
-    @vite('resources/css/frontend/pages/project.css')
+    @vite(['resources/css/frontend/pages/project.css', 'resources/css/frontend/pages/projects-index.css'])
 @endpush
 
 @section('content')
 @php($videoId = \App\Support\Media\YoutubeUrl::id($projectVideoUrl))
 <div class="project-case">
     <section class="project-case__hero">
-        @if ($project->image_url ?: $defaultBannerUrl)<img class="project-case__hero-image" src="{{ $project->image_webp_url ?: $defaultBannerUrl }}" alt="" fetchpriority="high">@endif
         <div class="container position-relative">
             <nav class="project-case__breadcrumb" aria-label="Breadcrumb">
                 <a href="{{ route('home') }}">{{ __('Trang chủ') }}</a><span>/</span><a href="{{ route('projects.index') }}">{{ __('Dự án') }}</a><span>/</span>@if ($project->category)<a href="{{ route('slug.show', ['slug' => $project->category->slug]) }}">{{ $project->category->name }}</a><span>/</span>@endif<span aria-current="page">{{ $project->title }}</span>
@@ -43,13 +42,9 @@
                 <div class="{{ count($content['gallery']) ? 'col-lg-5' : 'col-12' }}">
                     @include('frontend.projects.partials.section-heading', ['section' => ['label' => __('Tổng quan dự án'), 'title' => __('Thông tin chung')]])
                     <div class="article-prose">{!! $content['overview']['body_html'] !!}</div>
-                    @if (count($content['overview']['facts']))<dl class="project-case__facts">
-                        @foreach ($content['overview']['facts'] as $fact)
-                            <div><dt>{{ $fact['label'] }}</dt><dd>@if (isset($fact['status']))<span class="status-pill status-pill--{{ $fact['status'] }}">{{ $fact['value'] }}</span>@else{{ $fact['value'] }}@endif</dd></div>
-                        @endforeach
-                    </dl>@endif
-                    @if (count($content['overview']['technologies']))<ul class="tech-chips" aria-label="{{ __('Công nghệ sử dụng') }}">@foreach ($content['overview']['technologies'] as $tech)<li>{{ $tech }}</li>@endforeach</ul>@endif
-                    @if ($project->website_url)<a class="btn btn-primary mt-3" href="{{ $project->website_url }}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square me-2" aria-hidden="true"></i>{{ __('Xem website thực tế') }}</a>@endif
+                    @unless (count($content['gallery']))
+                        @include('frontend.projects.partials.facts')
+                    @endunless
                 </div>
                 @if (count($content['gallery']))
                 <div class="col-lg-7">
@@ -71,6 +66,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="project-case__specs">@include('frontend.projects.partials.facts')</div>
                 </div>
                 @endif
             </div>
@@ -156,15 +152,11 @@
     <section id="du-an-lien-quan" class="project-case__section">
         <div class="container">
             <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4"><div>@include('frontend.projects.partials.section-heading', ['section' => ['label' => __('Dự án liên quan'), 'title' => __('Có thể bạn quan tâm')]])</div><a class="section-link" href="{{ route('projects.index') }}">{{ __('Xem tất cả dự án →') }}</a></div>
-            @if ($relatedProjects->isNotEmpty())
-                <div class="project-case__slider-shell">
-                    <div class="swiper" data-project-related-swiper><div class="swiper-wrapper">
-                        @foreach ($relatedProjects as $relatedProject)<div class="swiper-slide">@include('frontend.partials.project-card', ['project' => $relatedProject])</div>@endforeach
-                    </div></div>
-                    <button type="button" class="project-case__arrow project-case__arrow--prev" data-strip-prev aria-label="{{ __('Dự án trước') }}">‹</button>
-                    <button type="button" class="project-case__arrow project-case__arrow--next" data-strip-next aria-label="{{ __('Dự án tiếp theo') }}">›</button>
-                </div>
-            @endif
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+                @foreach ($relatedProjects as $project)
+                    <div class="col">@include('frontend.projects.partials.list-card')</div>
+                @endforeach
+            </div>
         </div>
     </section>
 

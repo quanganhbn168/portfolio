@@ -69,7 +69,7 @@ class ProjectController extends Controller
             ->orderByRaw('project_category_id = ? desc', [$project->project_category_id])
             ->orderByDesc('is_featured')
             ->orderByDesc('published_at')
-            ->limit(4)
+            ->limit(3)
             ->get();
 
         return view('frontend.projects.show', compact('project') + [

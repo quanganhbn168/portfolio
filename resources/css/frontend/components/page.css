@@ -341,16 +341,21 @@ h2.display-title,
         opacity: 1;
     }
     table {
-        display: block;
+        display: table;
         width: 100%;
-        max-width: 100%;
         margin-block: 1.25rem;
-        overflow-x: auto;
         border-collapse: separate;
         border-spacing: 0;
         border: 1px solid var(--bs-border-color);
         border-radius: .75rem;
         font-size: .95rem;
+        overflow: hidden;
+    }
+    @media (max-width: 575.98px) {
+        table {
+            display: block;
+            overflow-x: auto;
+        }
     }
     th, td {
         padding: .7rem .9rem;
