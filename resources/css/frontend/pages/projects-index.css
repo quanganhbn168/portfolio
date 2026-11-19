@@ -536,3 +536,8 @@
         display: flex;
     }
 }
+
+/* "Tôi là ai" đứng đầu trang, hero nằm ngay dưới */
+.pf-owner-top + .pf-hero {
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+}

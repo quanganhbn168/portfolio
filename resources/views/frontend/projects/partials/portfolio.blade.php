@@ -4,6 +4,33 @@
     $heroImage = $caseStudy?->image_webp_url;
 @endphp
 
+@if (filled($website->owner_name) || filled($website->owner_bio))
+    @php
+        $ownerImage = \App\Support\Media\MediaUrl::webp($websiteMedia->get($website->owner_media_id), 640);
+    @endphp
+    <section class="section-space pb-0 pf-owner-top" id="toi-la-ai">
+        <div class="container">
+            <div class="pf-owner-card">
+                @if ($ownerImage)
+                    <img class="pf-owner-card__avatar" src="{{ $ownerImage }}" alt="{{ $website->owner_name }}" width="200" height="200" loading="lazy">
+                @endif
+                <div class="pf-owner-card__body">
+                    <span class="pf-badge">{{ __('Tôi là ai') }}</span>
+                    <h2>{{ $website->owner_name }}</h2>
+                    @if ($website->owner_title)<p class="pf-owner-card__role">{{ $website->owner_title }}</p>@endif
+                    @if ($website->owner_bio)<p class="pf-owner-card__bio">{!! nl2br(e($website->owner_bio)) !!}</p>@endif
+                    <div class="d-flex flex-wrap align-items-center gap-3">
+                        @include('partials.socials', ['class' => 'pf-owner-card__socials'])
+                        @if ($servicesLink)
+                            <a class="btn btn-primary" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endif
+
 <section class="pf-hero">
     <div class="container">
         <div class="row align-items-center g-4 g-lg-5">
@@ -30,33 +57,6 @@
         </div>
     </div>
 </section>
-
-@if (filled($website->owner_name) || filled($website->owner_bio))
-    @php
-        $ownerImage = \App\Support\Media\MediaUrl::webp($websiteMedia->get($website->owner_media_id), 640);
-    @endphp
-    <section class="section-space pb-0" id="toi-la-ai">
-        <div class="container">
-            <div class="pf-owner-card">
-                @if ($ownerImage)
-                    <img class="pf-owner-card__avatar" src="{{ $ownerImage }}" alt="{{ $website->owner_name }}" width="200" height="200" loading="lazy">
-                @endif
-                <div class="pf-owner-card__body">
-                    <span class="pf-badge">{{ __('Tôi là ai') }}</span>
-                    <h2>{{ $website->owner_name }}</h2>
-                    @if ($website->owner_title)<p class="pf-owner-card__role">{{ $website->owner_title }}</p>@endif
-                    @if ($website->owner_bio)<p class="pf-owner-card__bio">{!! nl2br(e($website->owner_bio)) !!}</p>@endif
-                    <div class="d-flex flex-wrap align-items-center gap-3">
-                        @include('partials.socials', ['class' => 'pf-owner-card__socials'])
-                        @if ($servicesLink)
-                            <a class="btn btn-primary" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-@endif
 
 <section class="section-space pf-list" id="du-an-da-trien-khai">
     <div class="container">
