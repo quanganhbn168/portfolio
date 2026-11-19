@@ -1,0 +1,15 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+@import './theme.css';
+@import './reset.css';
+@import './fonts.css';
+
+@import './components/header.css';
+@import './components/footer.css';
+@import './components/floating-actions.css';
+@import './components/page.css';
+@import './components/cards.css';
+@import './components/forms.css';
+
+html {
+    font-size: 16px;
+}

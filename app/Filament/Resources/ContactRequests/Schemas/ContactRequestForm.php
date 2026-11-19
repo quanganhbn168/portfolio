@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Filament\Resources\ContactRequests\Schemas;
+
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
+
+final class ContactRequestForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema->components([
+            Section::make('Thông tin khách hàng')
+
+                ->schema([
+                    TextInput::make('name')->label('Họ tên'),
+                    TextInput::make('phone')->label('Điện thoại'),
+                    TextInput::make('email')->label('Email')->email(),
+                    TextInput::make('company')->label('Công ty'),
+                    TextInput::make('budget')->label('Ngân sách'),
+                    Textarea::make('message')->label('Nội dung')->rows(5)->columnSpanFull(),
+                    Select::make('status')->label('Trạng thái')->options(['new' => 'Mới', 'contacted' => 'Đã liên hệ', 'qualified' => 'Tiềm năng', 'closed' => 'Đã xử lý'])->required(),
+                    DateTimePicker::make('contacted_at')->label('Đã liên hệ lúc'),
+                ])
+                ->columns(2),
+        ]);
+    }
+}

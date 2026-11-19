@@ -1,0 +1,249 @@
+/* Trang Portfolio (/projects): hero, tab lọc, lưới thẻ dự án, case study, CTA. Màu lấy từ biến --brand-*. */
+.pf-badge {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: .25rem .8rem;
+    border: 1px solid color-mix(in srgb, var(--brand-accent) 55%, #fff);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--brand-accent) 12%, #fff);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.pf-hero {
+    padding: clamp(2.5rem, 6vw, 5rem) 0;
+    background: linear-gradient(135deg, var(--brand-background), color-mix(in srgb, var(--brand-accent) 10%, #fff));
+}
+
+.pf-hero__title {
+    margin-bottom: 1rem;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -.03em;
+}
+
+.pf-hero__lead {
+    max-width: 34rem;
+    margin-bottom: 1.5rem;
+    color: var(--bs-secondary-color);
+    font-size: 1.1rem;
+}
+
+.pf-hero__media,
+.pf-case__media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, .18);
+}
+
+.pf-hero__media img,
+.pf-case__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pf-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2rem;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    list-style: none;
+}
+
+.pf-stats li {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.pf-stats i {
+    color: var(--brand-accent);
+    font-size: 1.6rem;
+}
+
+.pf-stats strong {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1.1;
+}
+
+.pf-stats span {
+    color: var(--bs-secondary-color);
+    font-size: .85rem;
+}
+
+.pf-list__head {
+    margin-bottom: 1.75rem;
+    text-align: center;
+}
+
+.pf-list__head h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+}
+
+.pf-list__head p {
+    margin: 0;
+    color: var(--bs-secondary-color);
+}
+
+.pf-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .6rem;
+    margin-bottom: 2rem;
+}
+
+.pf-tab {
+    padding: .55rem 1.1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 999px;
+    background: #fff;
+    font-size: .9rem;
+    font-weight: 600;
+    transition: background-color .2s, color .2s, border-color .2s;
+}
+
+.pf-tab:hover {
+    border-color: var(--brand-secondary);
+}
+
+.pf-tab.is-active {
+    border-color: var(--brand-secondary);
+    background: var(--brand-secondary);
+    color: #fff;
+}
+
+[data-pf-grid] > [hidden] {
+    display: none !important;
+}
+
+/* Thẻ dự án (cũng dùng cho trang danh mục) */
+.project-tile {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 1rem;
+    background: #fff;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.project-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, .12);
+}
+
+.project-tile__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #eef2f7;
+}
+
+.project-tile__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-tile__badge {
+    position: absolute;
+    top: .8rem;
+    left: .8rem;
+    padding: .2rem .65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .92);
+    font-size: .75rem;
+    font-weight: 700;
+}
+
+.project-tile__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1.1rem 1.25rem 1.25rem;
+}
+
+.project-tile__title {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.project-tile__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.project-tile__excerpt {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    color: var(--bs-secondary-color);
+    font-size: .92rem;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.project-tile__more {
+    margin-top: auto;
+    color: var(--brand-primary);
+    font-size: .9rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Case study */
+.pf-case {
+    display: grid;
+    align-items: center;
+    gap: 2rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border-radius: 1.25rem;
+    background: linear-gradient(135deg, var(--brand-background), color-mix(in srgb, var(--brand-accent) 12%, #fff));
+}
+
+.pf-case h2 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 800;
+}
+
+@media (min-width: 992px) {
+    .pf-case {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* CTA */
+.pf-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 1.25rem;
+    background: var(--brand-gradient-primary);
+    color: #fff;
+}
+
+.pf-cta h2 {
+    margin-bottom: .25rem;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.pf-cta p {
+    margin: 0;
+    opacity: .85;
+}

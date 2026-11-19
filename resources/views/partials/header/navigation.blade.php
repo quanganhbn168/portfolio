@@ -1,0 +1,23 @@
+<nav class="header-nav d-flex flex-nowrap justify-content-end align-items-center" aria-label="{{ __('Điều hướng chính') }}">
+    @foreach ($headerNavigation as $item)
+        <div class="header-nav__item @if ($item['has_children']) dropdown @endif">
+            <a class="header-nav__link @if ($item['is_active']) is-active @endif"
+               href="{{ $item['url'] }}"
+               @if ($item['target'] === '_blank') target="_blank" rel="noopener noreferrer" @endif
+               @if ($item['is_active']) aria-current="page" @endif>{{ $item['label'] }}</a>
+            @if ($item['has_children'])
+                <button type="button" class="header-nav__toggle dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        aria-controls="desktop-menu-{{ $loop->index }}"
+                        aria-label="{{ __('Mở danh mục :p1', ['p1' => $item['label']]) }}"></button>
+                <ul class="dropdown-menu" id="desktop-menu-{{ $loop->index }}">
+                    @foreach ($item['children'] as $child)
+                        <li><a class="dropdown-item @if ($child['is_active']) active @endif" href="{{ $child['url'] }}"
+                               @if ($child['target'] === '_blank') target="_blank" rel="noopener noreferrer" @endif
+                               @if ($child['is_active']) aria-current="page" @endif>{{ $child['label'] }}</a></li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    @endforeach
+</nav>

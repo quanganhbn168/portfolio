@@ -1,0 +1,112 @@
+.comment-form__message {
+    min-height: 8rem;
+}
+
+.comment-form legend {
+    font-size: 1rem;
+}
+
+.review-layout {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+}
+
+.review-avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+}
+
+/* Chọn số sao: bấm thẳng vào ngôi sao, tô vàng từ trái sang phải đến sao được chọn hoặc đang rê chuột. */
+.star-rating {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: .15rem;
+}
+
+.star-rating__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.star-rating__star {
+    color: var(--bs-border-color);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color .15s ease, transform .15s ease;
+}
+
+.star-rating__star::before {
+    content: "★";
+}
+
+.star-rating__input:checked ~ .star-rating__star,
+.star-rating:hover .star-rating__star:hover,
+.star-rating:hover .star-rating__star:hover ~ .star-rating__star {
+    color: var(--brand-star);
+}
+
+.star-rating__star:hover {
+    transform: scale(1.1);
+}
+
+.star-rating__input:focus-visible + .star-rating__star {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+    border-radius: .25rem;
+}
+
+.review-rating {
+    color: var(--bs-warning-text-emphasis);
+}
+
+.consultation {
+    --bs-heading-color: inherit;
+    isolation: isolate;
+    background:
+        radial-gradient(circle at 8% 0%, rgba(255, 255, 255, .18), transparent 45%),
+        linear-gradient(135deg,
+            color-mix(in srgb, var(--bs-primary) 82%, #fff) 0%,
+            var(--bs-primary) 50%,
+            color-mix(in srgb, var(--bs-primary) 72%, #000) 100%);
+    color: white;
+}
+
+.consultation__background,
+.consultation__overlay {
+    inset: 0;
+    z-index: -1;
+}
+
+.consultation__overlay {
+    background: rgba(var(--bs-primary-rgb), .86);
+}
+
+.consultation__layout {
+    display: grid;
+    gap: 2rem;
+}
+
+.consultation__form {
+    --bs-heading-color: var(--bs-emphasis-color);
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    border-radius: 1rem;
+    background: var(--bs-body-bg);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .22);
+    color: var(--bs-body-color);
+}
+
+@media (min-width: 992px) {
+    .review-layout,
+    .consultation__layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

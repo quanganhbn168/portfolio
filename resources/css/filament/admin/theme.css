@@ -1,0 +1,48 @@
+@import './fonts.css';
+@import 'tailwindcss' source(none);
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../../../vendor/awcodes/filament-curator/resources/css/plugin.css';
+
+@source '../../../../app/Filament/**/*.php';
+@source '../../../../resources/views/filament/**/*.blade.php';
+@source '../../../../vendor/awcodes/filament-curator/resources/**/*.blade.php';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+.fi-fo-rich-editor {
+    overflow: hidden;
+}
+
+.fi-fo-rich-editor-main {
+    @apply h-50 overflow-hidden md:h-[13rem];
+}
+
+.fi-fo-rich-editor-content {
+    @apply min-h-0 overflow-y-auto overscroll-contain;
+}
+
+/* Ô chọn ảnh (Curator), cả chọn một lẫn nhiều: ô 4:3, ảnh phủ kín, số cột tự co theo bề rộng. */
+.curator-media-picker > ul:has(> li > div.checkered) {
+    @apply grid;
+    @apply gap-3;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+}
+
+/*
+ * Ô ảnh nhỏ hơn menu "ba chấm" của Curator nên không được cắt phần tràn (overflow-hidden mặc định),
+ * nếu không menu Xem/Sửa/Tải/Xoá bị che mất. Bo góc được chuyển xuống chính ảnh và lớp thông tin.
+ */
+.curator-media-picker > ul > li > div.checkered {
+    @apply aspect-[4/3] h-auto overflow-visible;
+}
+
+.curator-media-picker > ul > li > div.checkered > img {
+    @apply size-full rounded-[inherit] object-cover;
+}
+
+.curator-media-picker > ul > li > div.checkered > :last-child:not(:first-child) {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+}

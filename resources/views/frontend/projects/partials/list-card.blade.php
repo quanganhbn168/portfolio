@@ -1,0 +1,39 @@
+{{-- Thẻ dự án dạng ảnh trên, thông tin dưới (trang danh sách dự án). Thẻ phủ chữ lên ảnh dùng frontend.partials.project-card. --}}
+@php
+    $url = route('slug.show', ['slug' => $project->slug]);
+    $facts = collect([
+        ['label' => __('Chủ đầu tư'), 'icon' => 'fa-user-tie', 'value' => $project->client_name],
+        ['label' => __('Địa điểm'), 'icon' => 'fa-location-dot', 'value' => data_get($project->details, 'hero.location')],
+        ['label' => __('Quy mô'), 'icon' => 'fa-ruler-combined', 'value' => data_get($project->details, 'hero.area')],
+        ['label' => __('Hoàn thành'), 'icon' => 'fa-calendar-check', 'value' => $project->completed_at?->translatedFormat('m/Y')],
+    ])->filter(fn (array $fact): bool => filled($fact['value']))->take(3);
+@endphp
+<article class="project-tile">
+    <a class="project-tile__media" href="{{ $url }}" tabindex="-1" aria-hidden="true">
+        @if ($project->curatorMedia)
+            <x-responsive-image :media="$project->curatorMedia" :alt="$project->title" :widths="[480, 768]"
+                sizes="(min-width: 1200px) 380px, (min-width: 768px) 46vw, 100vw" />
+        @elseif ($project->image_url)
+            <img src="{{ $project->image_card_url }}" alt="{{ $project->title }}" loading="lazy">
+        @else
+            <img src="{{ asset('images/no-image.svg') }}" alt="" loading="lazy">
+        @endif
+        @if ($project->category)
+            <span class="project-tile__badge">{{ $project->category->name }}</span>
+        @endif
+    </a>
+    <div class="project-tile__body">
+        <h3 class="project-tile__title"><a href="{{ $url }}">{{ $project->title }}</a></h3>
+        @if ($project->excerpt)
+            <p class="project-tile__excerpt">{{ $project->excerpt }}</p>
+        @endif
+        @if ($facts->isNotEmpty())
+            <dl class="project-tile__facts">
+                @foreach ($facts as $fact)
+                    <div title="{{ $fact['label'] }}"><dt><i class="fa-solid {{ $fact['icon'] }}" aria-hidden="true"></i><span class="visually-hidden">{{ $fact['label'] }}</span></dt><dd>{{ $fact['value'] }}</dd></div>
+                @endforeach
+            </dl>
+        @endif
+        <a class="project-tile__more" href="{{ $url }}" aria-hidden="true" tabindex="-1">{{ __('Xem chi tiết') }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+</article>

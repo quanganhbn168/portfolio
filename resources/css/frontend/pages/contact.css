@@ -1,0 +1,288 @@
+.contact-page-hero {
+    --bs-heading-color: #fff;
+
+    position: relative;
+    isolation: isolate;
+
+    padding-block: clamp(3rem, 7vw, 6rem);
+
+    color: #fff;
+    background: var(--bs-dark);
+}
+
+.contact-page-hero__image,
+.contact-page-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.contact-page-hero__overlay {
+    background: rgba(var(--bs-dark-rgb), .75);
+}
+
+
+/* Breadcrumb */
+.contact-page-hero__breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    gap: .75rem;
+
+    margin-bottom: 1.5rem;
+
+    color: rgba(255, 255, 255, .8);
+}
+
+.contact-page-hero__breadcrumb a,
+.contact-page-hero__breadcrumb span {
+    color: inherit;
+}
+
+.contact-page-hero__breadcrumb a {
+    text-decoration: none;
+
+    transition:
+        color .2s ease,
+        opacity .2s ease;
+}
+
+.contact-page-hero__breadcrumb a:hover {
+    color: #fff;
+}
+
+.contact-page-hero__breadcrumb [aria-current="page"] {
+    color: #fff;
+    font-weight: 600;
+}
+
+
+/* Hero heading */
+.contact-page-hero h1 {
+    margin-bottom: 1rem;
+
+    color: #fff;
+
+    font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.contact-page-hero__intro {
+    margin-bottom: 0;
+
+    color: rgba(255, 255, 255, .9);
+
+    font-size: 1.125rem;
+    line-height: 1.7;
+}
+
+
+/* Layout */
+.contact-layout {
+    display: grid;
+
+    gap: 2rem;
+
+    align-items: start;
+}
+
+
+/* Contact details */
+.contact-details {
+    margin-bottom: 2rem;
+}
+
+.contact-details__title {
+    margin-bottom: 1.75rem;
+}
+
+.contact-details__list {
+    display: grid;
+
+    gap: 0;
+}
+
+
+/* Contact item */
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 1rem;
+
+    padding-block: 1.15rem;
+
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.contact-info-item:first-child {
+    padding-top: 0;
+}
+
+.contact-info-item__icon {
+    display: flex;
+    flex: 0 0 44px;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    color: var(--bs-primary);
+    background: rgba(var(--bs-primary-rgb), .1);
+
+    font-size: 1rem;
+}
+
+.contact-info-item__content {
+    min-width: 0;
+
+    padding-top: .1rem;
+}
+
+.contact-info-item__label {
+    margin-bottom: .25rem;
+
+    color: var(--bs-body-color);
+
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.contact-info-item__value {
+    color: var(--bs-secondary-color);
+
+    line-height: 1.65;
+}
+
+
+/* Phone */
+.contact-info-item__phones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    gap: .5rem;
+}
+
+.contact-info-item__phones a {
+    color: var(--bs-body-color);
+
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.contact-info-item__phones a:hover {
+    color: var(--bs-primary);
+}
+
+.contact-info-item__separator {
+    color: var(--bs-secondary-color);
+}
+
+
+/* Links */
+.contact-info-item__content > a {
+    color: var(--bs-body-color);
+
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.contact-info-item__content > a:hover {
+    color: var(--bs-primary);
+}
+
+
+/* Google maps button */
+.contact-details__action {
+    padding-top: 1.5rem;
+}
+
+
+/* Map */
+.contact-page__map {
+    aspect-ratio: 4 / 3;
+
+    overflow: hidden;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-lg);
+
+    background: var(--bs-light);
+}
+
+.contact-page__map iframe {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}
+
+.contact-page__map-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+
+    padding: 2rem;
+
+    color: var(--bs-secondary-color);
+    text-align: center;
+}
+
+
+/* Form */
+.contact-form {
+    padding: clamp(1rem, 3vw, 2rem);
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-lg);
+}
+
+.contact-form .form-control,
+.contact-form .form-select {
+    margin-top: .5rem;
+}
+
+
+/* Desktop */
+@media (min-width: 992px) {
+    .contact-layout {
+        grid-template-columns: 1fr 1.2fr;
+    }
+}
+
+
+/* Các địa điểm: thẻ chi nhánh chọn được + bản đồ đổi theo thẻ */
+.contact-locations__title { margin-bottom: 1rem; color: var(--brand-navy); }
+.contact-locations__list { display: grid; gap: .75rem; margin-bottom: 1rem; }
+.contact-branch { position: relative; display: flex; align-items: flex-start; gap: 1rem; width: 100%; padding: 1rem 1.1rem; border: 1px solid var(--bs-border-color); border-left: 4px solid var(--bs-border-color); border-radius: .85rem; background: #fff; color: var(--bs-body-color); text-align: left; cursor: pointer; transition: border-color .2s, box-shadow .2s, background .2s; }
+.contact-branch:hover { border-color: var(--brand-secondary); }
+.contact-branch:focus-visible { outline: 3px solid rgba(var(--brand-accent-rgb), .45); outline-offset: 2px; }
+.contact-branch.is-active { border-color: var(--brand-secondary); background: linear-gradient(90deg, rgba(var(--brand-secondary-rgb), .08), #fff 70%); box-shadow: 0 10px 26px rgba(var(--brand-primary-rgb), .1); }
+.contact-branch__icon { display: grid; flex: none; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--brand-background); color: var(--brand-primary); font-size: 1.05rem; transition: background .2s, color .2s; }
+.contact-branch.is-active .contact-branch__icon { background: var(--brand-secondary); color: #fff; }
+.contact-branch__body { display: grid; gap: .2rem; min-width: 0; }
+.contact-branch__body strong { color: var(--brand-navy); font-size: 1.0625rem; }
+.contact-branch__body > span { line-height: 1.45; }
+.contact-branch__phone { color: var(--brand-primary); font-weight: 600; }
+.contact-branch__phone i { margin-right: .4rem; color: var(--brand-secondary); font-size: .8rem; }
+.contact-branch__state { position: absolute; top: .75rem; right: .9rem; display: none; padding: .15rem .6rem; border-radius: 999px; background: var(--brand-secondary); color: #fff; font-size: .6875rem; font-weight: 700; }
+.contact-branch.is-active .contact-branch__state { display: inline-block; }
+@media (max-width: 575.98px) { .contact-branch__state { position: static; align-self: flex-start; } .contact-branch { flex-wrap: wrap; } }
+
+/* Nhiều số điện thoại: xếp gọn theo hàng, bỏ dấu gạch ngăn cách (dễ bị rơi cuối dòng khi xuống hàng). */
+.contact-info-item__phones { display: flex; flex-wrap: wrap; gap: .15rem 1.5rem; }
+.contact-info-item__separator { display: none; }

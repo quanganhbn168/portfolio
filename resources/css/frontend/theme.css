@@ -1,0 +1,265 @@
+/* Giao diện thương hiệu của website.
+
+   KHÔNG khai báo mã màu ở đây. Bảng màu nằm duy nhất trong config/brand.php và được in thành biến
+   --brand-* (kèm --brand-*-rgb) vào <head> của mọi trang. File này chỉ nối các biến đó vào Bootstrap
+   và định nghĩa nút, tiêu đề, trạng thái. Sắc độ đậm/nhạt (hover, nhấn) suy ra bằng color-mix().
+   Muốn đổi màu: sửa config/brand.php. Muốn đổi font: sửa --bs-font-sans-serif bên dưới. */
+:root,
+[data-bs-theme=light] {
+    --brand-gradient-primary: linear-gradient(90deg, var(--brand-primary-dark), var(--brand-panel-from) 55%, var(--brand-accent));
+    --brand-gradient-secondary: linear-gradient(90deg, var(--brand-secondary), var(--brand-secondary-light));
+
+    --bs-primary: var(--brand-primary);
+    --bs-secondary: var(--brand-secondary);
+    --bs-success: var(--brand-secondary);
+    --bs-info: var(--brand-accent);
+    --bs-light: var(--brand-surface);
+    --bs-dark: var(--brand-text);
+    --bs-primary-rgb: var(--brand-primary-rgb);
+    --bs-secondary-rgb: var(--brand-secondary-rgb);
+    --bs-success-rgb: var(--brand-secondary-rgb);
+    --bs-info-rgb: var(--brand-accent-rgb);
+    --bs-light-rgb: var(--brand-surface-rgb);
+    --bs-dark-rgb: var(--brand-text-rgb);
+
+    --bs-primary-text-emphasis: var(--brand-navy);
+    --bs-secondary-text-emphasis: color-mix(in srgb, var(--brand-secondary) 70%, #000);
+    --bs-success-text-emphasis: color-mix(in srgb, var(--brand-secondary) 70%, #000);
+    --bs-info-text-emphasis: color-mix(in srgb, var(--brand-accent) 65%, #000);
+    --bs-primary-bg-subtle: var(--brand-background);
+    --bs-secondary-bg-subtle: color-mix(in srgb, var(--brand-secondary) 14%, #fff);
+    --bs-success-bg-subtle: color-mix(in srgb, var(--brand-secondary) 14%, #fff);
+    --bs-info-bg-subtle: color-mix(in srgb, var(--brand-accent) 14%, #fff);
+    --bs-light-bg-subtle: var(--brand-surface);
+    --bs-primary-border-subtle: color-mix(in srgb, var(--brand-primary) 25%, #fff);
+    --bs-secondary-border-subtle: color-mix(in srgb, var(--brand-secondary) 40%, #fff);
+    --bs-success-border-subtle: color-mix(in srgb, var(--brand-secondary) 40%, #fff);
+    --bs-info-border-subtle: color-mix(in srgb, var(--brand-accent) 40%, #fff);
+
+    --bs-font-sans-serif: "Inter", "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --bs-body-font-size: 1rem;
+    --bs-body-color: var(--brand-text);
+    --bs-body-color-rgb: var(--brand-text-rgb);
+    --bs-emphasis-color: color-mix(in srgb, var(--brand-text) 75%, #000);
+    --bs-emphasis-color-rgb: var(--brand-text-rgb);
+    --bs-secondary-color: rgba(var(--brand-text-rgb), 0.75);
+    --bs-secondary-color-rgb: var(--brand-text-rgb);
+    --bs-tertiary-color: rgba(var(--brand-text-rgb), 0.5);
+    --bs-tertiary-color-rgb: var(--brand-text-rgb);
+    --bs-heading-color: var(--brand-navy);
+    --bs-link-color: var(--brand-primary);
+    --bs-link-color-rgb: var(--brand-primary-rgb);
+    --bs-link-hover-color: var(--brand-accent);
+    --bs-link-hover-color-rgb: var(--brand-accent-rgb);
+    --bs-highlight-color: var(--brand-text);
+    --bs-border-color: var(--brand-border);
+    --bs-focus-ring-color: rgba(var(--brand-accent-rgb), 0.3);
+}
+
+/* Tiêu đề: cùng font chữ. H1-H2 đậm 700, H3-H6 semi bold 600. */
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+    font-family: var(--bs-font-sans-serif);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+h1, .h1, h2, .h2 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+h1, .h1 { font-size: calc(1.5rem + 1.6vw); }
+h2, .h2 { font-size: calc(1.35rem + 0.9vw); }
+h3, .h3 { font-size: calc(1.2rem + 0.3vw); }
+h4, .h4 { font-size: calc(1.1rem + 0.2vw); }
+@media (min-width: 1200px) {
+    h1, .h1 { font-size: 3rem; }
+    h2, .h2 { font-size: 2.25rem; }
+    h3, .h3 { font-size: 1.75rem; }
+    h4, .h4 { font-size: 1.375rem; }
+}
+small, .small { font-size: 0.875rem; }
+
+/* Ô nhập, checkbox, thanh trượt */
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: var(--brand-accent);
+    box-shadow: 0 0 0 0.25rem rgba(var(--brand-accent-rgb), 0.25);
+}
+.form-check-input:checked,
+.form-check-input[type=checkbox]:indeterminate {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+}
+.form-range:focus::-webkit-slider-thumb { box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(var(--brand-accent-rgb), 0.25); }
+.form-range:focus::-moz-range-thumb { box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(var(--brand-accent-rgb), 0.25); }
+.form-range::-webkit-slider-thumb { background-color: var(--brand-primary); }
+.form-range::-webkit-slider-thumb:active { background-color: color-mix(in srgb, var(--brand-primary) 30%, #fff); }
+.form-range::-moz-range-thumb { background-color: var(--brand-primary); }
+.form-range::-moz-range-thumb:active { background-color: color-mix(in srgb, var(--brand-primary) 30%, #fff); }
+
+/* Nút bấm */
+.btn { font-weight: 600; }
+
+/* Primary Button = xanh lá (nút CTA chính) */
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--brand-secondary);
+    --bs-btn-border-color: var(--brand-secondary);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: color-mix(in srgb, var(--brand-secondary) 85%, #000);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-secondary) 85%, #000);
+    --bs-btn-focus-shadow-rgb: var(--brand-secondary-rgb);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: color-mix(in srgb, var(--brand-secondary) 72%, #000);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--brand-secondary) 72%, #000);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--brand-secondary);
+    --bs-btn-disabled-border-color: var(--brand-secondary);
+}
+/* Secondary Button = xanh dương */
+.btn-secondary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--brand-primary);
+    --bs-btn-border-color: var(--brand-primary);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 80%, #000);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 80%, #000);
+    --bs-btn-focus-shadow-rgb: var(--brand-primary-rgb);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 65%, #000);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 65%, #000);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--brand-primary);
+    --bs-btn-disabled-border-color: var(--brand-primary);
+}
+.btn-success {
+    --bs-btn-bg: var(--brand-secondary);
+    --bs-btn-border-color: var(--brand-secondary);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--brand-secondary) 85%, #000);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-secondary) 85%, #000);
+    --bs-btn-active-bg: color-mix(in srgb, var(--brand-secondary) 72%, #000);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--brand-secondary) 72%, #000);
+}
+.btn-info {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--brand-accent);
+    --bs-btn-border-color: var(--brand-accent);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--brand-accent-dark);
+    --bs-btn-hover-border-color: var(--brand-accent-dark);
+    --bs-btn-active-bg: var(--brand-accent-dark);
+    --bs-btn-active-border-color: var(--brand-accent-dark);
+}
+/* Ghost Button = nền xanh nhạt, chữ xanh dương */
+.btn-light {
+    --bs-btn-color: var(--brand-primary);
+    --bs-btn-bg: var(--brand-background);
+    --bs-btn-border-color: var(--brand-background);
+    --bs-btn-hover-color: var(--brand-primary);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--brand-background) 88%, var(--brand-primary));
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-background) 88%, var(--brand-primary));
+    --bs-btn-focus-shadow-rgb: var(--brand-primary-rgb);
+    --bs-btn-active-color: var(--brand-primary);
+    --bs-btn-active-bg: color-mix(in srgb, var(--brand-background) 78%, var(--brand-primary));
+    --bs-btn-active-border-color: color-mix(in srgb, var(--brand-background) 78%, var(--brand-primary));
+    --bs-btn-disabled-bg: var(--brand-background);
+    --bs-btn-disabled-border-color: var(--brand-background);
+}
+.btn-dark {
+    --bs-btn-bg: var(--brand-text);
+    --bs-btn-border-color: var(--brand-text);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--brand-text) 80%, #000);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-text) 80%, #000);
+    --bs-btn-active-bg: color-mix(in srgb, var(--brand-text) 65%, #000);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--brand-text) 65%, #000);
+    --bs-btn-disabled-bg: var(--brand-text);
+    --bs-btn-disabled-border-color: var(--brand-text);
+}
+/* Outline Button = viền và chữ xanh dương */
+.btn-outline-primary,
+.btn-outline-secondary {
+    --bs-btn-color: var(--brand-primary);
+    --bs-btn-border-color: var(--brand-primary);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--brand-primary);
+    --bs-btn-hover-border-color: var(--brand-primary);
+    --bs-btn-focus-shadow-rgb: var(--brand-primary-rgb);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--brand-primary);
+    --bs-btn-active-border-color: var(--brand-primary);
+    --bs-btn-disabled-color: var(--brand-primary);
+    --bs-btn-disabled-border-color: var(--brand-primary);
+}
+.btn-outline-success {
+    --bs-btn-color: var(--brand-secondary-dark);
+    --bs-btn-border-color: var(--brand-secondary);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--brand-secondary);
+    --bs-btn-hover-border-color: var(--brand-secondary);
+    --bs-btn-focus-shadow-rgb: var(--brand-secondary-rgb);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--brand-secondary);
+    --bs-btn-active-border-color: var(--brand-secondary);
+    --bs-btn-disabled-color: var(--brand-secondary-dark);
+    --bs-btn-disabled-border-color: var(--brand-secondary);
+}
+.btn-outline-light {
+    --bs-btn-color: var(--brand-surface);
+    --bs-btn-border-color: var(--brand-surface);
+    --bs-btn-hover-color: var(--brand-primary);
+    --bs-btn-hover-bg: var(--brand-surface);
+    --bs-btn-hover-border-color: var(--brand-surface);
+    --bs-btn-focus-shadow-rgb: var(--brand-surface-rgb);
+    --bs-btn-active-color: var(--brand-primary);
+    --bs-btn-active-bg: var(--brand-surface);
+    --bs-btn-active-border-color: var(--brand-surface);
+    --bs-btn-disabled-color: var(--brand-surface);
+    --bs-btn-disabled-border-color: var(--brand-surface);
+}
+.btn-outline-dark {
+    --bs-btn-color: var(--brand-text);
+    --bs-btn-border-color: var(--brand-text);
+    --bs-btn-hover-bg: var(--brand-text);
+    --bs-btn-hover-border-color: var(--brand-text);
+    --bs-btn-focus-shadow-rgb: var(--brand-text-rgb);
+    --bs-btn-active-bg: var(--brand-text);
+    --bs-btn-active-border-color: var(--brand-text);
+    --bs-btn-disabled-color: var(--brand-text);
+    --bs-btn-disabled-border-color: var(--brand-text);
+}
+.btn-link { --bs-btn-focus-shadow-rgb: var(--brand-primary-rgb); }
+
+.dropdown-menu,
+.dropdown-menu-dark { --bs-dropdown-link-active-bg: var(--brand-primary); }
+.nav-link:focus-visible { box-shadow: 0 0 0 0.25rem rgba(var(--brand-accent-rgb), 0.25); }
+.nav-pills { --bs-nav-pills-link-active-bg: var(--brand-primary); }
+.accordion { --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--brand-accent-rgb), 0.25); }
+.pagination {
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(var(--brand-accent-rgb), 0.25);
+    --bs-pagination-active-bg: var(--brand-primary);
+    --bs-pagination-active-border-color: var(--brand-primary);
+}
+.progress,
+.progress-stacked { --bs-progress-bar-bg: var(--brand-secondary); }
+.list-group {
+    --bs-list-group-active-bg: var(--brand-primary);
+    --bs-list-group-active-border-color: var(--brand-primary);
+}
+.btn-close { --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(var(--brand-accent-rgb), 0.25); }
+.popover { --bs-popover-header-color: var(--bs-emphasis-color); }
+.link-primary:hover, .link-primary:focus {
+    color: var(--brand-accent);
+    text-decoration-color: var(--brand-accent);
+}
+.link-secondary:hover, .link-secondary:focus {
+    color: var(--brand-secondary-dark);
+    text-decoration-color: var(--brand-secondary-dark);
+}
+.link-light:hover, .link-light:focus {
+    color: #fff;
+    text-decoration-color: #fff;
+}
+.link-dark:hover, .link-dark:focus {
+    color: var(--bs-emphasis-color);
+    text-decoration-color: var(--bs-emphasis-color);
+}

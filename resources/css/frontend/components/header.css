@@ -1,0 +1,369 @@
+/* Header: thanh trắng, logo bên trái, menu và nút liên hệ bên phải (theo mẫu thiết kế). Màu lấy từ biến --brand-*. */
+.header-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background: #fff;
+    transition: transform 200ms ease;
+}
+
+.header-sticky.is-scroll-hidden:not(:focus-within) {
+    transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .header-sticky {
+        transition: none;
+    }
+}
+
+.header {
+    border-bottom: 1px solid var(--bs-border-color);
+    color: var(--bs-emphasis-color);
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(var(--brand-primary-rgb), .05);
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    min-height: 104px;
+    gap: 1.5rem;
+    padding-block: .5rem;
+}
+
+.header__brand {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.header__brand > img {
+    width: auto;
+    width: 280px;
+    max-width: 300px;
+    height: auto;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+/* Chưa có logo: biểu tượng tròn + tên website bằng chữ. */
+.brand__symbol {
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    flex: none;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: #fff;
+}
+
+.brand__symbol svg {
+    width: 1.45rem;
+    height: 1.45rem;
+}
+
+.brand__words {
+    display: grid;
+    gap: .08rem;
+    line-height: 1;
+}
+
+.brand__words {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 15rem;
+}
+
+.brand__words strong,
+.brand__words small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.brand__words strong {
+    color: var(--brand-primary);
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -.045em;
+}
+
+.brand__words small {
+    color: var(--bs-body-color);
+    font-size: .625rem;
+    font-weight: 700;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+}
+
+.header__navigation {
+    min-width: 0;
+}
+
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+    flex: none;
+}
+
+.header__search,
+.header__toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 0.625rem;
+    color: var(--bs-emphasis-color);
+    background: var(--brand-surface);
+}
+
+.header__search svg,
+.header__toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+.header__search:hover,
+.header__toggle:hover {
+    color: var(--brand-primary);
+    background: var(--brand-background);
+}
+
+.header__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: .75rem 1.5rem;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.header__cta svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.header-nav__item {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Menu: chữ thường, vừa phải; mục đang chọn có chữ xanh và gạch chân. */
+.header-nav__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.6rem;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--bs-emphasis-color);
+}
+
+.header-nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0;
+    height: 2px;
+    background: var(--brand-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 160ms ease;
+}
+
+.header-nav__link:hover,
+.header-nav__link.is-active {
+    color: var(--brand-primary);
+}
+
+.header-nav__link:hover::after,
+.header-nav__link.is-active::after {
+    transform: scaleX(1);
+}
+
+.header-nav__toggle {
+    border: 0;
+    background: transparent;
+    padding: 0.5rem 0.35rem;
+    color: var(--bs-emphasis-color);
+}
+
+.header-nav .dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--brand-primary);
+    min-width: 16rem;
+    border-top: 3px solid var(--brand-primary);
+    padding-block: 0.4rem;
+    box-shadow: 0 15px 35px rgba(var(--brand-text-rgb), .125);
+}
+
+.header-nav .dropdown-item {
+    padding: 0.65rem 1rem;
+    font-size: 0.875rem;
+    white-space: normal;
+}
+
+.mobile-menu {
+    --bs-offcanvas-width: min(90vw, 380px);
+}
+
+.mobile-nav__item {
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.mobile-nav__link {
+    padding: 0.9rem 0.25rem;
+    color: var(--bs-emphasis-color);
+    font-weight: 600;
+}
+
+.mobile-nav__toggle {
+    border: 0;
+    background: transparent;
+    padding: 0.75rem;
+    color: var(--brand-primary);
+}
+
+.mobile-nav__children {
+    margin: 0 0 0.8rem 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--bs-border-color);
+}
+
+.mobile-nav__children a {
+    display: block;
+    padding: 0.65rem 0.25rem;
+    font-size: 0.875rem;
+    color: var(--bs-secondary-color);
+}
+
+.mobile-nav .is-active {
+    color: var(--brand-primary);
+    font-weight: 700;
+}
+
+@media (max-width: 1199.98px) {
+    .header__cta {
+        display: none;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .header__inner {
+        min-height: 72px;
+        gap: 0.5rem;
+    }
+    .header__brand > img {
+        width: 190px;
+        max-width: 190px;
+        height: auto;
+    }
+    .header__actions {
+        gap: 0.4rem;
+    }
+}
+
+/* Màn hình vừa (1200-1599px): thu nhỏ chữ và khoảng cách để đủ chỗ cho logo và menu trên một hàng. */
+@media (min-width: 1200px) and (max-width: 1599.98px) {
+    .header__inner {
+        gap: 1rem;
+    }
+    .header-nav__link {
+        padding-inline: 0.5rem;
+        font-size: 0.875rem;
+    }
+    .header-nav__link::after {
+        left: 0.5rem;
+        right: 0.5rem;
+    }
+    .header__brand > img {
+        width: 240px;
+        max-width: 250px;
+        height: auto;
+    }
+    .header__cta {
+        padding-inline: 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Màn hình 1200-1399px: menu có 8 mục nên thu logo, chữ và bỏ ô tìm kiếm tròn để không tràn. */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .header__inner {
+        gap: .5rem;
+    }
+    .header__brand > img {
+        width: 200px;
+    }
+    .header-nav__link {
+        padding-inline: .4rem;
+        font-size: .8125rem;
+    }
+    .header-nav__link::after {
+        left: .4rem;
+        right: .4rem;
+    }
+    .header__actions {
+        gap: .4rem;
+    }
+    .header__cta {
+        padding-inline: .75rem;
+        font-size: .8125rem;
+    }
+}
+
+/* Công tắc ngôn ngữ (EN / VI) */
+.language-switcher__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    height: 40px;
+    padding: 0 .75rem;
+    border: 0;
+    border-radius: .625rem;
+    background: var(--brand-surface);
+    color: var(--bs-emphasis-color);
+    font-size: .875rem;
+    font-weight: 600;
+}
+
+.language-switcher__toggle:hover {
+    background: var(--brand-background);
+    color: var(--brand-primary);
+}
+
+.language-switcher__toggle svg {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.language-switcher .dropdown-menu {
+    min-width: 9rem;
+    padding: .35rem;
+}
+
+.language-switcher .dropdown-item {
+    border-radius: .375rem;
+}
+
+/* Ẩn thanh và khung mặc định của Google Translate. */
+body > .skiptranslate,
+.goog-te-banner-frame {
+    display: none !important;
+}
+
+body {
+    top: 0 !important;
+}
