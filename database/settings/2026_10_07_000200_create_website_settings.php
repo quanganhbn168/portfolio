@@ -27,6 +27,9 @@ return new class extends SettingsMigration
         $this->migrator->add('website.github_url', '');
         $this->migrator->add('website.tiktok_url', '');
         $this->migrator->add('website.telegram_url', '');
+        $this->migrator->add('website.linkedin_url', '');
+        $this->migrator->add('website.wechat', '');
+        $this->migrator->add('website.whatsapp', '');
         $this->migrator->add('website.seo_title', '');
         $this->migrator->add('website.seo_description', '');
         $this->migrator->add('website.seo_keywords', '');

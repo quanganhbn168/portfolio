@@ -27,6 +27,7 @@
         <x-site-footer />
         @include('partials.floating-actions')
     @endunless
+    @include('partials.quote-modal')
     @yield('after_footer')
     @stack('scripts')
     @if (app()->getLocale() !== config('languages.default'))

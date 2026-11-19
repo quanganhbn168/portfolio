@@ -49,6 +49,12 @@ class WebsiteSettings extends Settings
 
     public string $telegram_url = '';
 
+    public string $linkedin_url = '';
+
+    public string $wechat = '';
+
+    public string $whatsapp = '';
+
     public string $seo_title = '';
 
     public string $seo_description = '';

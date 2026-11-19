@@ -1,6 +1,6 @@
-{{-- Trang Portfolio: hero + số liệu, tab lọc theo lĩnh vực, lưới dự án, case study, CTA. --}}
+{{-- Trang chủ: trang cá nhân, dự án (tab lọc), dịch vụ, bảng giá, blog, công nghệ, liên hệ. --}}
 @php
-    $hotline = $website->primaryPhone() ?: $website->hotline;
+    $hotline = $website->hotline;
 @endphp
 
 @if (filled($website->owner_name) || filled($website->owner_bio))
@@ -31,7 +31,7 @@
                         </p>
                     </div>
                     <div class="fb-profile__actions">
-                        <a class="btn btn-primary" href="{{ route('contact') }}"><i class="fa-regular fa-envelope me-2" aria-hidden="true"></i>{{ __('Nhắn tin') }}</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quote-modal"><i class="fa-regular fa-envelope me-2" aria-hidden="true"></i>{{ __('Nhắn tin') }}</button>
                         <a class="btn btn-secondary-soft" href="{{ $servicesLink['url'] }}">{{ __('Bảng giá & dịch vụ') }}</a>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     @if ($plans->isNotEmpty())<a href="#bang-gia">{{ __('Bảng giá') }}</a>@endif
                     @if ($latestPosts->isNotEmpty())<a href="#bai-viet">{{ __('Blog') }}</a>@endif
                     <a href="#cong-nghe">{{ __('Công nghệ') }}</a>
-                    <a href="{{ route('contact') }}">{{ __('Liên hệ') }}</a>
+                    <a href="#lien-he">{{ __('Liên hệ') }}</a>
                 </nav>
             </article>
 
@@ -178,19 +178,18 @@
     @endforeach
 </section>
 
-<section class="pb-5">
+<section class="section-space pt-0" id="lien-he">
     <div class="container">
-        <div class="pf-cta">
-            <div>
+        <div class="pf-contact">
+            <div class="pf-contact__info">
+                <span class="pf-badge">{{ __('Liên hệ') }}</span>
                 <h2>{{ __('Bạn đang có dự án tương tự?') }}</h2>
-                <p>{{ __('Hãy để chúng tôi đồng hành cùng bạn từ ý tưởng đến vận hành.') }}</p>
+                <p>{{ __('Hãy để mình đồng hành cùng bạn từ ý tưởng đến vận hành.') }}</p>
+                @include('partials.contact-methods')
             </div>
-            <div class="d-flex flex-wrap gap-3">
-                @if ($hotline)
-                    <a class="btn btn-outline-light btn-lg" href="tel:{{ preg_replace('/[^\d+]/', '', $hotline) }}"><i class="fa-solid fa-phone me-2" aria-hidden="true"></i>{{ $hotline }}</a>
-                @endif
-                <a class="btn btn-outline-light btn-lg" href="{{ $servicesLink['url'] }}">{{ __('Bảng giá & dịch vụ') }}</a>
-                <a class="btn btn-light btn-lg" href="{{ route('contact') }}">{{ __('Nhận tư vấn miễn phí') }}</a>
+            <div class="pf-contact__form">
+                <h3>{{ __('Gửi yêu cầu') }}</h3>
+                @include('partials.contact-form', ['prefix' => 'home', 'rows' => 4])
             </div>
         </div>
     </div>

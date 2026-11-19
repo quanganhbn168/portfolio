@@ -83,6 +83,9 @@ class ManageSettings extends Page
             'github_url' => $website->github_url,
             'tiktok_url' => $website->tiktok_url,
             'telegram_url' => $website->telegram_url,
+            'linkedin_url' => $website->linkedin_url,
+            'wechat' => $website->wechat,
+            'whatsapp' => $website->whatsapp,
             'seo_title' => $website->seo_title,
             'seo_description' => $website->seo_description,
             'seo_keywords' => $website->seo_keywords,
@@ -228,7 +231,7 @@ class ManageSettings extends Page
             }
         }
 
-        foreach (['site_name', 'tagline', 'footer_description', 'contact_email', 'facebook_url', 'zalo_url', 'youtube_url', 'owner_name', 'owner_title', 'owner_bio', 'owner_workplace', 'owner_location', 'github_url', 'tiktok_url', 'telegram_url', 'seo_title', 'seo_description', 'seo_keywords'] as $key) {
+        foreach (['site_name', 'tagline', 'footer_description', 'contact_email', 'facebook_url', 'zalo_url', 'youtube_url', 'owner_name', 'owner_title', 'owner_bio', 'owner_workplace', 'owner_location', 'github_url', 'tiktok_url', 'telegram_url', 'linkedin_url', 'wechat', 'whatsapp', 'seo_title', 'seo_description', 'seo_keywords'] as $key) {
             $website->{$key} = (string) ($data[$key] ?? '');
         }
 

@@ -25,7 +25,8 @@ Route::group([], function (): void {
     Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
     Route::get('/services', ServicesController::class)->name('services.index');
     Route::get('/about', AboutController::class)->name('about');
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    // Liên hệ nằm ở cuối trang chủ (không có trang riêng); giữ đường dẫn cũ để link cũ vẫn hoạt động.
+    Route::redirect('/contact', '/#lien-he')->name('contact');
     Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:frontend-contact')->name('contact.store');
 });
 

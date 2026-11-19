@@ -68,6 +68,9 @@ final class ContactSettingsSchema
                     TextInput::make('github_url')->label('GitHub')->url()->maxLength(2048),
                     TextInput::make('tiktok_url')->label('TikTok')->url()->maxLength(2048),
                     TextInput::make('telegram_url')->label('Telegram')->url()->maxLength(2048),
+                    TextInput::make('linkedin_url')->label('LinkedIn')->url()->maxLength(2048),
+                    TextInput::make('wechat')->label('WeChat (ID)')->maxLength(120),
+                    TextInput::make('whatsapp')->label('WhatsApp (số điện thoại)')->maxLength(40)->placeholder('+84901234567'),
                 ])
                 ->columns(2),
             Section::make('Tôi là ai')

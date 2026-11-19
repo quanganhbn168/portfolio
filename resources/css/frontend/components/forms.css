@@ -110,3 +110,101 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
+
+/* Form liên hệ nhanh + các cách liên lạc */
+.quick-form__status {
+    margin-top: 1rem;
+}
+
+.quick-form__status .alert {
+    margin: 0;
+}
+
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: .75rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    height: 100%;
+    padding: .75rem 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: .85rem;
+    background: #fff;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+a.contact-method:hover {
+    border-color: var(--brand-accent);
+    box-shadow: 0 8px 22px rgba(42, 20, 12, .1);
+    transform: translateY(-2px);
+}
+
+.contact-method__logo {
+    display: grid;
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: .65rem;
+    background: var(--brand-tint);
+    color: var(--brand-secondary-strong);
+}
+
+.contact-method__logo img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+}
+
+.contact-method__text {
+    display: grid;
+    min-width: 0;
+    line-height: 1.3;
+}
+
+.contact-method__text small {
+    color: var(--bs-secondary-color);
+    font-size: .75rem;
+}
+
+.contact-method__text strong {
+    overflow: hidden;
+    font-size: .95rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.contact-methods--compact {
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+    margin-top: .75rem;
+}
+
+.quote-modal__methods {
+    margin-top: 1.5rem;
+}
+
+.quote-modal__or {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 0;
+    color: var(--bs-secondary-color);
+    font-size: .85rem;
+}
+
+.quote-modal__or::before,
+.quote-modal__or::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid var(--bs-border-color);
+}

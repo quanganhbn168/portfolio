@@ -47,7 +47,7 @@
                     <h2>{{ __('Chưa thấy gói phù hợp?') }}</h2>
                     <p>{{ __('Mô tả nhu cầu của bạn, mình sẽ tư vấn và báo giá riêng.') }}</p>
                 </div>
-                <a class="btn btn-light btn-lg" href="{{ route('contact') }}">{{ __('Nhận tư vấn miễn phí') }}</a>
+                <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#quote-modal">{{ __('Nhận tư vấn miễn phí') }}</button>
             </div>
         </div>
     </section>

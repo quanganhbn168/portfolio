@@ -14,7 +14,7 @@
                         @endforeach
                     </ul>
                 @endif
-                <a class="btn @if ($plan->is_featured) btn-primary @else btn-outline-secondary @endif btn-lg w-100" href="{{ route('contact') }}">{{ $plan->button_label ?: __('Nhận báo giá') }}</a>
+                <button type="button" class="btn @if ($plan->is_featured) btn-primary @else btn-outline-secondary @endif btn-lg w-100" data-bs-toggle="modal" data-bs-target="#quote-modal" data-plan="{{ $plan->name }}">{{ $plan->button_label ?: __('Nhận báo giá') }}</button>
             </article>
         </div>
     @endforeach

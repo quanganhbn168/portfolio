@@ -24,7 +24,7 @@
                         </div>
                     @endforeach
                 @else
-                    <a href="{{ route('home') }}">{{ __('Trang chủ') }}</a><a href="{{ route('about') }}">{{ __('Giới thiệu') }}</a>@foreach ($footerPages ?? [] as $footerPage)<a href="{{ $footerPage->url }}">{{ $footerPage->title }}</a>@endforeach<a href="{{ route('contact') }}">{{ __('Liên hệ') }}</a>
+                    <a href="{{ route('home') }}">{{ __('Trang chủ') }}</a><a href="{{ route('about') }}">{{ __('Giới thiệu') }}</a>@foreach ($footerPages ?? [] as $footerPage)<a href="{{ $footerPage->url }}">{{ $footerPage->title }}</a>@endforeach<a href="{{ url('/') }}#lien-he">{{ __('Liên hệ') }}</a>
                 @endif
                 <a href="{{ $servicesLink['url'] }}">{{ __('Bảng giá & dịch vụ') }}</a>
             </nav>

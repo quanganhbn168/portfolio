@@ -200,7 +200,7 @@ class FrontendServiceProvider extends ServiceProvider
             [__('Bảng giá & dịch vụ'), route('services.index'), request()->routeIs('services.index')],
             [__('Giới thiệu'), route('about'), request()->routeIs('about')],
             [__('Blog'), route('posts.index'), request()->routeIs('posts.index')],
-            [__('Liên hệ'), route('contact'), request()->routeIs('contact')],
+            [__('Liên hệ'), url('/').'#lien-he', false],
         ])->map(fn (array $item): array => [
             'label' => $item[0],
             'url' => $item[1],

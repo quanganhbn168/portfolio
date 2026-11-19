@@ -7,38 +7,15 @@ use App\Mail\NewContactRequest;
 use App\Models\ContactRequest;
 use App\Rules\PhoneNumber;
 use App\Settings\WebsiteSettings;
-use App\Support\Maps\GoogleMapsUrl;
-use App\Support\Pages\SystemPageProfileResolver;
-use App\Support\Seo\FrontendSeoBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\View\View;
 use Throwable;
 
 class ContactController extends Controller
 {
-    public function __construct(
-        private readonly FrontendSeoBuilder $seo,
-        private readonly WebsiteSettings $website,
-        private readonly SystemPageProfileResolver $systemPages,
-    ) {}
-
-    public function index(Request $request): View
-    {
-        $page = $this->systemPages->require('contact');
-
-        return view('frontend.contact', [
-            'prefilledMessage' => '',
-            'contactPhones' => $this->contactPhones(),
-            'contactBranches' => $this->contactBranches(),
-            'page' => $page,
-            'pageBannerUrl' => $page['banner_url'],
-            'seo' => $this->seo->systemPage($page, 'contact'),
-        ]);
-    }
+    public function __construct(private readonly WebsiteSettings $website) {}
 
     public function store(Request $request): RedirectResponse|JsonResponse
     {
@@ -77,64 +54,6 @@ class ContactController extends Controller
             ->with('success', __('Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất có thể.'));
     }
 
-    /** @return Collection<int, array{label: string, href: string}> */
-    private function contactPhones(): Collection
-    {
-        $phones = collect($this->website->phones ?? [])
-            ->filter(fn ($phone): bool => is_array($phone) && filled($phone['number'] ?? null))
-            ->values();
-
-        if ($phones->isEmpty()) {
-            $phones = collect([
-                ['number' => $this->website->hotline],
-                ['number' => $this->website->contact_phone],
-            ])->filter(fn (array $phone): bool => filled($phone['number'] ?? null))->values();
-        }
-
-        return $phones->map(fn (array $phone): array => [
-            'label' => trim((string) $phone['number']),
-            'href' => 'tel:'.preg_replace('/\s+/', '', (string) $phone['number']),
-        ])->unique('href')->values();
-    }
-
-    /**
-     * Các địa điểm hiển thị ở trang Liên hệ, mỗi nơi kèm link bản đồ nhúng riêng (tự tạo từ địa chỉ nếu chưa nhập).
-     *
-     * @return Collection<int, array{name: string, address: string, phone: string, map: string}>
-     */
-    private function contactBranches(): Collection
-    {
-        $branches = collect($this->website->branches ?? [])
-            ->filter(fn ($branch): bool => is_array($branch)
-                && ($branch['is_active'] ?? true)
-                && filled($branch['address'] ?? null))
-            ->map(fn (array $branch): array => [
-                'name' => (string) ($branch['name'] ?? __('Địa chỉ')),
-                'address' => trim((string) $branch['address']),
-                'phone' => trim((string) ($branch['phone'] ?? '')),
-                'map' => GoogleMapsUrl::normalizeEmbed($branch['map_url'] ?? null) ?: $this->addressMapUrl(trim((string) $branch['address'])),
-            ])
-            ->values();
-
-        if ($branches->isEmpty() && filled($this->website->address)) {
-            // Chưa khai báo chi nhánh: dùng địa chỉ chung (và bản đồ nhúng trong Cài đặt chung nếu có).
-            $branches = collect([[
-                'name' => __('Địa chỉ'),
-                'address' => trim((string) $this->website->address),
-                'phone' => '',
-                'map' => GoogleMapsUrl::normalizeEmbed($this->website->google_maps_embed_url) ?: $this->addressMapUrl(trim((string) $this->website->address)),
-            ]]);
-        }
-
-        return $branches;
-    }
-
-    private function addressMapUrl(string $address): string
-    {
-        return 'https://www.google.com/maps?q='.rawurlencode($address).'&output=embed';
-    }
-
-    /** A failing mail server must never lose the lead or break the form: it is already stored. */
     private function notify(ContactRequest $contactRequest): void
     {
         $recipient = trim((string) $this->website->contact_email);

@@ -63,9 +63,10 @@ class ContactFormTest extends TestCase
         $this->assertArrayNotHasKey('timeline', $request->getAttributes());
     }
 
-    public function test_contact_page_marks_required_fields_and_has_no_timeline_field(): void
+    public function test_home_contact_form_marks_required_fields_and_has_no_timeline_field(): void
     {
-        $this->get(route('contact'))->assertOk()
+        $this->get(route('home'))->assertOk()
+            ->assertSee('id="lien-he"', false)
             ->assertDontSee('name="timeline"', false)
             ->assertDontSee('Thời gian dự kiến')
             ->assertSee('name="phone"', false)

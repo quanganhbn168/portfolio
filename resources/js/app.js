@@ -79,6 +79,63 @@ function initialiseProfileTabs() {
     targets.forEach((target) => observer.observe(target));
 }
 
+function initialiseContactForms() {
+    const modalElement = document.getElementById('quote-modal');
+
+    document.querySelectorAll('[data-ajax-contact]').forEach((form) => {
+        const status = form.querySelector('[data-contact-status]');
+        const showStatus = (type, text) => {
+            status.innerHTML = '';
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-' + type;
+            alert.textContent = text;
+            status.append(alert);
+        };
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const button = form.querySelector('[type="submit"]');
+            button.disabled = true;
+            status.innerHTML = '';
+            form.querySelectorAll('.is-invalid').forEach((field) => field.classList.remove('is-invalid'));
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                    body: new FormData(form),
+                });
+                const data = await response.json().catch(() => ({}));
+
+                if (response.ok) {
+                    form.reset();
+                    showStatus('success', data.message || 'OK');
+                } else if (response.status === 422 && data.errors) {
+                    Object.entries(data.errors).forEach(([name, messages]) => {
+                        const field = form.querySelector('[name="' + name + '"]');
+                        const target = form.querySelector('[data-error-for="' + name + '"]');
+                        field?.classList.add('is-invalid');
+                        if (target) target.textContent = messages[0];
+                    });
+                } else {
+                    showStatus('danger', data.message || 'Error');
+                }
+            } catch (error) {
+                showStatus('danger', 'Error');
+            } finally {
+                button.disabled = false;
+            }
+        });
+    });
+
+    modalElement?.addEventListener('show.bs.modal', (event) => {
+        const plan = event.relatedTarget?.dataset.plan;
+        const field = modalElement.querySelector('textarea[name="message"]');
+        modalElement.querySelector('[data-contact-status]').innerHTML = '';
+        if (plan && field) field.value = modalElement.dataset.planText.replace(':plan', plan);
+    });
+}
+
 function initialiseAos() {
     const elements = document.querySelectorAll('[data-aos]');
     if (!elements.length) return;
@@ -129,6 +186,7 @@ function initialiseCountUp() {
 
 function initialise() {
     initialiseAos();
+    initialiseContactForms();
     initialiseProfileTabs();
     initialiseCountUp();
     initialiseGalleries();

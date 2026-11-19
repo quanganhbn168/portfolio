@@ -32,7 +32,6 @@ class Page extends Model
         'about' => ['label' => 'Giới thiệu', 'route' => 'about'],
         'services' => ['label' => 'Dịch vụ & bảng giá', 'route' => 'services.index'],
         'blog' => ['label' => 'Blog', 'route' => 'posts.index'],
-        'contact' => ['label' => 'Liên hệ', 'route' => 'contact'],
     ];
 
     protected $attributes = ['type' => self::TYPE_CUSTOM];

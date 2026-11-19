@@ -108,7 +108,7 @@
     @if (count($content['solution']['items']) || filled($content['solution']['description'] ?? null) || $content['solution']['image_url'])
     <section id="giai-phap-du-an" class="project-case__section">
         <div class="container row-gap-4 project-case__solution">
-            <div>@include('frontend.projects.partials.section-heading', ['section' => ['label' => __('Giải pháp triển khai'), 'title' => __('Giải pháp toàn diện')]])<p>{{ $content['solution']['description'] ?? '' }}</p><a class="btn btn-primary" href="{{ route('contact') }}">{{ __('Liên hệ tư vấn giải pháp') }} <i class="fa-solid fa-arrow-right ms-2" aria-hidden="true"></i></a></div>
+            <div>@include('frontend.projects.partials.section-heading', ['section' => ['label' => __('Giải pháp triển khai'), 'title' => __('Giải pháp toàn diện')]])<p>{{ $content['solution']['description'] ?? '' }}</p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quote-modal">{{ __('Liên hệ tư vấn giải pháp') }} <i class="fa-solid fa-arrow-right ms-2" aria-hidden="true"></i></button></div>
             <ul class="project-case__solutions">
                 @foreach ($content['solution']['items'] as $item)<li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>{{ $item['text'] }}</li>@endforeach
             </ul>
@@ -178,7 +178,7 @@
                 </div>
                 <div class="d-flex flex-wrap gap-3">
                     <a class="btn btn-light btn-lg" href="{{ $servicesLink['url'] }}">{{ __('Bảng giá & dịch vụ') }}</a>
-                    <a class="btn btn-outline-light btn-lg" href="{{ route('contact') }}">{{ __('Liên hệ tư vấn') }}</a>
+                    <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#quote-modal">{{ __('Liên hệ tư vấn') }}</button>
                 </div>
             </div>
         </div>

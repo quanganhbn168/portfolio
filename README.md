@@ -10,9 +10,9 @@ Website portfolio giới thiệu các dự án đã triển khai (website, landi
 | `/blog` | Blog cá nhân (danh sách, phân trang); bài viết ở `/{slug}` |
 | `/{slug}` | Chi tiết dự án, danh mục dự án hoặc bài viết blog |
 | `/about` | Giới thiệu |
-| `/contact` | Form liên hệ (lưu vào admin, gửi email nếu có cấu hình) |
+| `/services` | Dịch vụ & bảng giá (quản trị trong admin → Dịch vụ & bảng giá) |
 
-`/projects` chuyển hướng về `/`. Số liệu ở hero lấy từ database; case study là dự án nổi bật (hoặc mới nhất).
+Liên hệ nằm ở cuối trang chủ (`/#lien-he`) và trong modal "Nhận báo giá"; form gửi bằng AJAX, các cách liên lạc (Zalo, WeChat, LinkedIn…) lấy từ Cài đặt website, mục nào trống thì ẩn. `/projects` và `/contact` chuyển hướng về trang chủ. Số liệu ở hero lấy từ database; case study là dự án nổi bật (hoặc mới nhất).
 
 ## Cài đặt local (Laragon, PHP 8.3, MySQL)
 

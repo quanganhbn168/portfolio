@@ -7,6 +7,8 @@
         ['GitHub', 'github', $website->github_url],
         ['TikTok', 'tiktok', $website->tiktok_url],
         ['Telegram', 'telegram', $website->telegram_url],
+        ['LinkedIn', 'linkedin', $website->linkedin_url],
+        ['WhatsApp', 'whatsapp', filled($website->whatsapp) ? 'https://wa.me/'.preg_replace('/\D/', '', $website->whatsapp) : null],
         ['Email', 'gmail', filled($website->contact_email) ? 'mailto:'.$website->contact_email : null],
     ])->filter(fn (array $link): bool => filled($link[2]));
 @endphp
