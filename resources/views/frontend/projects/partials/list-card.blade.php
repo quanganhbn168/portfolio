@@ -2,14 +2,14 @@
 @php
     $url = route('slug.show', ['slug' => $project->slug]);
     $facts = collect([
-        ['label' => __('Chủ đầu tư'), 'icon' => 'fa-user-tie', 'value' => $project->client_name],
-        ['label' => __('Địa điểm'), 'icon' => 'fa-location-dot', 'value' => data_get($project->details, 'hero.location')],
-        ['label' => __('Quy mô'), 'icon' => 'fa-ruler-combined', 'value' => data_get($project->details, 'hero.area')],
+        ['label' => __('Khách hàng'), 'icon' => 'fa-user-tie', 'value' => $project->client_name],
+        ['label' => __('Giá trị'), 'icon' => 'fa-coins', 'value' => $project->price],
         ['label' => __('Hoàn thành'), 'icon' => 'fa-calendar-check', 'value' => $project->completed_at?->translatedFormat('m/Y')],
     ])->filter(fn (array $fact): bool => filled($fact['value']))->take(3);
 @endphp
 <article class="project-tile">
-    <a class="project-tile__media" href="{{ $url }}" tabindex="-1" aria-hidden="true">
+    <div class="project-tile__media">
+        <a class="project-tile__image" href="{{ $url }}" tabindex="-1" aria-hidden="true">
         @if ($project->curatorMedia)
             <x-responsive-image :media="$project->curatorMedia" :alt="$project->title" :widths="[480, 768]"
                 sizes="(min-width: 1200px) 380px, (min-width: 768px) 46vw, 100vw" />
@@ -18,10 +18,18 @@
         @else
             <img src="{{ asset('images/no-image.svg') }}" alt="" loading="lazy">
         @endif
+        </a>
         @if ($project->category)
             <span class="project-tile__badge">{{ $project->category->name }}</span>
         @endif
-    </a>
+        <span class="status-pill status-pill--{{ $project->project_status }} project-tile__status">{{ $project->project_status_label }}</span>
+        <div class="project-tile__overlay">
+            @if ($project->website_url)
+                <a class="btn btn-primary" href="{{ $project->website_url }}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square me-1" aria-hidden="true"></i>{{ __('Xem thực tế') }}</a>
+            @endif
+            <a class="btn btn-light" href="{{ $url }}">{{ __('Xem chi tiết') }}</a>
+        </div>
+    </div>
     <div class="project-tile__body">
         <h3 class="project-tile__title"><a href="{{ $url }}">{{ $project->title }}</a></h3>
         @if ($project->excerpt)

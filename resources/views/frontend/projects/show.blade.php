@@ -5,6 +5,7 @@
 @endpush
 
 @section('content')
+@php($videoId = \App\Support\Media\YoutubeUrl::id($projectVideoUrl))
 <div class="project-case">
     <section class="project-case__hero">
         @if ($project->image_url ?: $defaultBannerUrl)<img class="project-case__hero-image" src="{{ $project->image_webp_url ?: $defaultBannerUrl }}" alt="" fetchpriority="high">@endif
@@ -15,6 +16,7 @@
             <div class="project-case__hero-content">
                 <div>
                     @if ($project->category)<span class="project-case__badge">{{ $project->category->name }}</span>@endif
+                    <span class="status-pill status-pill--{{ $project->project_status }}">{{ $project->project_status_label }}</span>
                     <h1 class="text-white">{{ $project->title }}</h1>
                     @if ($project->excerpt)<p>{{ $project->excerpt }}</p>@endif
                     @if ($project->website_url)<a class="btn btn-primary btn-lg mt-3" href="{{ $project->website_url }}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square me-2" aria-hidden="true"></i>{{ __('Xem website thực tế') }}</a>@endif
@@ -26,6 +28,8 @@
     <nav class="project-case__nav" aria-label="{{ __('Điều hướng nội dung dự án') }}">
         <div class="container">
             <a href="#tong-quan"><i class="fa-regular fa-clipboard" aria-hidden="true"></i>{{ __('Tổng quan') }}</a>
+            @if ($videoId || $projectVideoUrl)<a href="#video-du-an"><i class="fa-regular fa-circle-play" aria-hidden="true"></i>{{ __('Video') }}</a>@endif
+            @if (count($content['gallery']))<a href="#thu-vien-anh"><i class="fa-regular fa-images" aria-hidden="true"></i>{{ __('Thư viện ảnh') }}</a>@endif
             @if (count($content['solution']['items']) || filled($content['solution']['description'] ?? null) || $content['solution']['image_url'])<a href="#giai-phap-du-an"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>{{ __('Giải pháp triển khai') }}</a>@endif
             @if (count($content['scope']['items']))<a href="#hang-muc"><i class="fa-solid fa-gears" aria-hidden="true"></i>{{ __('Hạng mục thi công') }}</a>@endif
             @if (count($content['construction']['images']))<a href="#hinh-anh-du-an"><i class="fa-regular fa-image" aria-hidden="true"></i>{{ __('Hình ảnh thực tế') }}</a>@endif
@@ -39,16 +43,17 @@
                 <div class="{{ count($content['gallery']) ? 'col-lg-5' : 'col-12' }}">
                     @include('frontend.projects.partials.section-heading', ['section' => ['label' => __('Tổng quan dự án'), 'title' => __('Thông tin chung')]])
                     <div class="article-prose">{!! $content['overview']['body_html'] !!}</div>
-                    @if ($projectVideoUrl)<a href="{{ $projectVideoUrl }}" class="section-link" target="_blank" rel="noopener">{{ __('Xem video dự án →') }}</a>@endif
                     @if (count($content['overview']['facts']))<dl class="project-case__facts">
                         @foreach ($content['overview']['facts'] as $fact)
-                            <div><dt>{{ $fact['label'] }}</dt><dd>{{ $fact['value'] }}</dd></div>
+                            <div><dt>{{ $fact['label'] }}</dt><dd>@if (isset($fact['status']))<span class="status-pill status-pill--{{ $fact['status'] }}">{{ $fact['value'] }}</span>@else{{ $fact['value'] }}@endif</dd></div>
                         @endforeach
                     </dl>@endif
+                    @if (count($content['overview']['technologies']))<ul class="tech-chips" aria-label="{{ __('Công nghệ sử dụng') }}">@foreach ($content['overview']['technologies'] as $tech)<li>{{ $tech }}</li>@endforeach</ul>@endif
+                    @if ($project->website_url)<a class="btn btn-primary mt-3" href="{{ $project->website_url }}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square me-2" aria-hidden="true"></i>{{ __('Xem website thực tế') }}</a>@endif
                 </div>
                 @if (count($content['gallery']))
                 <div class="col-lg-7">
-                    <div class="project-case__gallery">
+                    <div class="project-case__gallery" id="thu-vien-anh">
                         <div class="swiper" data-project-gallery aria-label="{{ __('Ảnh tổng quan dự án') }}">
                             <div class="swiper-wrapper">
                                 @foreach ($content['gallery'] as $image)
@@ -72,6 +77,21 @@
         </div>
     </section>
 
+    @if ($videoId || $projectVideoUrl)
+    <section id="video-du-an" class="project-case__section project-case__band">
+        <div class="container">
+            @include('frontend.projects.partials.section-heading', ['section' => ['label' => __('Video'), 'title' => __('Video giới thiệu dự án')]])
+            @if ($videoId)
+                <div class="project-video ratio ratio-16x9">
+                    <iframe src="https://www.youtube-nocookie.com/embed/{{ $videoId }}?rel=0" title="{{ $project->title }}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+                </div>
+            @else
+                <a class="btn btn-primary" href="{{ $projectVideoUrl }}" target="_blank" rel="noopener noreferrer">{{ __('Xem video dự án →') }}</a>
+            @endif
+        </div>
+    </section>
+
+    @endif
     @if (count($content['challenges']['items']))
     <section class="project-case__section project-case__band">
         <div class="container row-gap-4 project-case__band-grid">
@@ -148,6 +168,22 @@
         </div>
     </section>
 
+    @endif
+    @if ($servicesLink)
+    <section class="project-case__section">
+        <div class="container">
+            <div class="pf-cta">
+                <div>
+                    <h2>{{ __('Muốn có một dự án tương tự?') }}</h2>
+                    <p>{{ __('Xem bảng giá và các dịch vụ tại :p1, hoặc liên hệ để được tư vấn miễn phí.', ['p1' => $servicesLink['host']]) }}</p>
+                </div>
+                <div class="d-flex flex-wrap gap-3">
+                    <a class="btn btn-light btn-lg" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
+                    <a class="btn btn-outline-light btn-lg" href="{{ route('contact') }}">{{ __('Liên hệ tư vấn') }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
     @endif
 </div>
 @endsection

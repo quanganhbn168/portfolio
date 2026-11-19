@@ -67,6 +67,13 @@ final class ContactSettingsSchema
                     TextInput::make('youtube_url')->label('YouTube')->url()->maxLength(2048),
                 ])
                 ->columns(2),
+            Section::make('Bảng giá & dịch vụ')
+                ->description('Website chính có bảng giá, dịch vụ (ví dụ webappbacninh.vn). Link này hiện ở header, trang chủ, chi tiết dự án và footer.')
+                ->schema([
+                    TextInput::make('services_url')->label('Link bảng giá & dịch vụ')->url()->maxLength(2048),
+                    TextInput::make('services_label')->label('Chữ trên nút')->maxLength(60)->placeholder('Bảng giá & dịch vụ'),
+                ])
+                ->columns(2),
         ];
     }
 }

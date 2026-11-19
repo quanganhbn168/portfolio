@@ -2,11 +2,9 @@
     $url = route('slug.show', ['slug' => $project->slug]);
     $imageUrl = $project->image_card_url ?: ($defaultBannerUrl ?? null);
     $facts = collect([
-        ['label' => __('Chủ đầu tư'), 'icon' => 'fa-user-tie', 'value' => $project->client_name],
-        ['label' => __('Địa điểm'), 'icon' => 'fa-location-dot', 'value' => data_get($project->details, 'hero.location')],
-        ['label' => __('Quy mô'), 'icon' => 'fa-ruler-combined', 'value' => data_get($project->details, 'hero.area')],
-        ['label' => __('Kinh phí'), 'icon' => 'fa-coins', 'value' => data_get($project->details, 'hero.budget')],
-        ['label' => __('Loại công trình'), 'icon' => 'fa-industry', 'value' => $project->industry],
+        ['label' => __('Khách hàng'), 'icon' => 'fa-user-tie', 'value' => $project->client_name],
+        ['label' => __('Giá trị'), 'icon' => 'fa-coins', 'value' => $project->price],
+        ['label' => __('Loại dự án'), 'icon' => 'fa-industry', 'value' => $project->industry],
         ['label' => __('Hoàn thành'), 'icon' => 'fa-calendar-check', 'value' => $project->completed_at?->translatedFormat('m/Y')],
     ])->filter(fn (array $fact): bool => filled($fact['value']))->take(4);
 @endphp

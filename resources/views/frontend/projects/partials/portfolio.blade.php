@@ -12,10 +12,13 @@
                 <h1 class="pf-hero__title">{{ $pageTitle }}</h1>
                 <p class="pf-hero__lead">{{ $pageDescription }}</p>
 
+                @if ($servicesLink)
+                    <p class="pf-owner"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{ __('Đây là portfolio của') }} <a href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['host'] }}</a> — {{ __('xem bảng giá và dịch vụ chi tiết tại đó.') }}</p>
+                @endif
                 <div class="d-flex flex-wrap gap-3">
                     <a class="btn btn-primary btn-lg" href="{{ route('contact') }}">{{ __('Liên hệ tư vấn dự án') }} <i class="fa-solid fa-arrow-right ms-1" aria-hidden="true"></i></a>
-                    @if ($caseStudy)
-                        <a class="btn btn-outline-secondary btn-lg" href="#case-study">{{ __('Xem case study') }}</a>
+                    @if ($servicesLink)
+                        <a class="btn btn-outline-secondary btn-lg" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
                     @endif
                 </div>
             </div>
@@ -113,9 +116,12 @@
             </div>
             <div class="d-flex flex-wrap gap-3">
                 @if ($hotline)
-                    <a class="btn btn-light btn-lg" href="tel:{{ preg_replace('/[^\d+]/', '', $hotline) }}"><i class="fa-solid fa-phone me-2" aria-hidden="true"></i>{{ $hotline }}</a>
+                    <a class="btn btn-outline-light btn-lg" href="tel:{{ preg_replace('/[^\d+]/', '', $hotline) }}"><i class="fa-solid fa-phone me-2" aria-hidden="true"></i>{{ $hotline }}</a>
                 @endif
-                <a class="btn btn-outline-light btn-lg" href="{{ route('contact') }}">{{ __('Nhận tư vấn miễn phí') }}</a>
+                @if ($servicesLink)
+                    <a class="btn btn-outline-light btn-lg" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
+                @endif
+                <a class="btn btn-light btn-lg" href="{{ route('contact') }}">{{ __('Nhận tư vấn miễn phí') }}</a>
             </div>
         </div>
     </div>

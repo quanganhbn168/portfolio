@@ -21,6 +21,8 @@ final class WebsiteSettingsSeeder extends Seeder
             'facebook_url' => '',
             'zalo_url' => '',
             'youtube_url' => '',
+            'services_url' => 'https://webappbacninh.vn',
+            'services_label' => 'Bảng giá & dịch vụ',
             'seo_title' => 'Portfolio | Các dự án tiêu biểu đã triển khai',
             'seo_description' => 'Các dự án website, landing page, hệ thống phần mềm và giải pháp số tiêu biểu đã triển khai cho khách hàng.',
             'seo_keywords' => 'portfolio, thiết kế website, landing page, phần mềm',

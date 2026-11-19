@@ -28,6 +28,11 @@ class WebsiteSettings extends Settings
 
     public string $youtube_url = '';
 
+    /** Trang bảng giá & dịch vụ (website chính của doanh nghiệp). */
+    public string $services_url = '';
+
+    public string $services_label = '';
+
     public string $seo_title = '';
 
     public string $seo_description = '';

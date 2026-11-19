@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('client_name')->nullable();
             $table->string('industry')->nullable();
+            $table->string('price')->nullable();
+            $table->date('started_at')->nullable();
+            $table->string('project_status', 32)->default('completed')->index();
+            $table->string('technologies', 512)->nullable();
             $table->text('excerpt')->nullable();
             $table->longText('body')->nullable();
             $table->string('website_url', 1024)->nullable();

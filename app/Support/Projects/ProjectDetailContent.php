@@ -31,12 +31,14 @@ final class ProjectDetailContent
         $details['overview'] ??= [];
         $details['overview']['body_html'] = (string) str((string) $project->body)->sanitizeHtml();
         $details['overview']['facts'] = collect([
-            ['label' => __('Chủ đầu tư'), 'value' => $project->client_name],
-            ['label' => __('Địa điểm'), 'value' => data_get($details, 'hero.location')],
-            ['label' => __('Loại công trình'), 'value' => $project->industry],
-            ['label' => __('Quy mô'), 'value' => data_get($details, 'hero.area')],
-            ['label' => __('Thời gian thực hiện'), 'value' => data_get($details, 'overview.period')],
+            ['label' => __('Khách hàng'), 'value' => $project->client_name],
+            ['label' => __('Loại dự án'), 'value' => $project->industry],
+            ['label' => __('Giá trị'), 'value' => $project->price],
+            ['label' => __('Bắt đầu'), 'value' => $project->started_at?->format('m/Y')],
+            ['label' => __('Hoàn thành'), 'value' => $project->completed_at?->format('m/Y')],
+            ['label' => __('Tình trạng'), 'value' => $project->project_status_label, 'status' => $project->project_status],
         ])->filter(fn ($item) => filled($item['value'] ?? null))->values()->all();
+        $details['overview']['technologies'] = $project->technology_list;
 
         return $details;
     }

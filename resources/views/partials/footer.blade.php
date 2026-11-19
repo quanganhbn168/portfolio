@@ -30,6 +30,7 @@
                 @else
                     <a href="{{ route('home') }}">{{ __('Trang chủ') }}</a><a href="{{ route('about') }}">{{ __('Giới thiệu') }}</a>@foreach ($footerPages ?? [] as $footerPage)<a href="{{ $footerPage->url }}">{{ $footerPage->title }}</a>@endforeach<a href="{{ route('contact') }}">{{ __('Liên hệ') }}</a>
                 @endif
+                @if ($servicesLink)<a href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} ({{ $servicesLink['host'] }})</a>@endif
             </nav>
         </section>
 

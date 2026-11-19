@@ -16,6 +16,14 @@ class Project extends Model
     use HasCuratorImage;
     use HasSeoImage;
 
+    /** Tình trạng triển khai của dự án (khác với trạng thái xuất bản `status`). */
+    public const PROJECT_STATUSES = [
+        'planning' => 'Lên kế hoạch',
+        'in_progress' => 'Đang thực hiện',
+        'completed' => 'Đã hoàn thành',
+        'maintenance' => 'Đang bảo trì',
+    ];
+
     protected $guarded = [];
 
     protected function casts(): array
@@ -25,8 +33,20 @@ class Project extends Model
             'details' => 'array',
             'is_featured' => 'boolean',
             'completed_at' => 'date',
+            'started_at' => 'date',
             'published_at' => 'datetime',
         ];
+    }
+
+    public function getProjectStatusLabelAttribute(): string
+    {
+        return __(self::PROJECT_STATUSES[$this->project_status] ?? self::PROJECT_STATUSES['completed']);
+    }
+
+    /** @return list<string> */
+    public function getTechnologyListAttribute(): array
+    {
+        return collect(explode(',', (string) $this->technologies))->map(fn (string $item): string => trim($item))->filter()->values()->all();
     }
 
     public function category(): BelongsTo

@@ -106,6 +106,11 @@ class FrontendServiceProvider extends ServiceProvider
             'footerContactPhones' => $this->phoneLinks($website),
             'footerContactBranches' => $this->contactBranches($website),
             'currentYear' => now()->year,
+            'servicesLink' => filter_var($website->services_url, FILTER_VALIDATE_URL) ? [
+                'url' => $website->services_url,
+                'label' => filled($website->services_label) ? $website->services_label : __('Bảng giá & dịch vụ'),
+                'host' => preg_replace('/^www\\./', '', (string) parse_url($website->services_url, PHP_URL_HOST)),
+            ] : null,
         ]);
 
         View::composer('partials.footer', function (BladeView $view) use ($website): void {

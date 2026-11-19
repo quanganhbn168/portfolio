@@ -35,22 +35,30 @@ final class ProjectForm
                         }),
                     SlugInput::make(),
                     Textarea::make('excerpt')->label('Mô tả trên banner')->rows(3),
-                    TextInput::make('client_name')->label('Chủ đầu tư')->maxLength(255),
-                    TextInput::make('industry')->label('Loại công trình')->maxLength(255),
-                    TextInput::make('details.hero.location')->label('Địa điểm')->maxLength(255),
-                    TextInput::make('details.hero.area')->label('Quy mô')->maxLength(255),
-                    TextInput::make('details.hero.budget')->label('Kinh phí')->maxLength(255),
-                    TextInput::make('details.overview.period')->label('Thời gian thực hiện')->maxLength(255),
-                    DatePicker::make('completed_at')->label('Ngày hoàn thành'),
+                    TextInput::make('client_name')->label('Khách hàng')->maxLength(255),
+                    TextInput::make('industry')->label('Loại dự án')->maxLength(255)->placeholder('Website doanh nghiệp, Landing page, Phần mềm…'),
+                    TextInput::make('price')->label('Giá trị / chi phí')->maxLength(255)->placeholder('Ví dụ: 25.000.000đ'),
+                    Select::make('project_status')->label('Tình trạng')->options(Project::PROJECT_STATUSES)->default('completed')->required(),
+                    DatePicker::make('started_at')->label('Bắt đầu từ'),
+                    DatePicker::make('completed_at')->label('Hoàn thành'),
+                    TextInput::make('technologies')->label('Công nghệ sử dụng')->maxLength(512)->placeholder('Laravel, MySQL, Tailwind CSS')->helperText('Cách nhau bằng dấu phẩy.'),
                     TextInput::make('website_url')->label('Link website thực tế')->url()->maxLength(1024)->helperText('Khách hàng bấm vào để xem dự án đang chạy thật.'),
-                    TextInput::make('video_url')->label('Video dự án')->url(),
+                    TextInput::make('video_url')->label('Video giới thiệu (link YouTube)')->url(),
                     self::image('curator_media_id', 'Ảnh đại diện')->relationship('curatorMedia', 'id'),
                 ]),
-                Section::make('Tổng quan')->schema([
-                    self::image('gallery', 'Ảnh tổng quan')->multiple(),
-                    RichEditor::make('body')->label('Nội dung tổng quan')
+                Section::make('Nội dung & thư viện ảnh')->schema([
+                    self::image('gallery', 'Thư viện ảnh (gallery)')->multiple(),
+                    RichEditor::make('body')->label('Nội dung chi tiết')
+                        ->helperText('Viết thoải mái: tiêu đề, danh sách, trích dẫn, bảng, code, ảnh… trang dự án đã được chỉnh CSS cho các định dạng này.')
                         ->plugins([ScopedAttachCuratorMediaPlugin::make()])
-                        ->enableToolbarButtons(['attachCuratorMedia'])->disableToolbarButtons(['attachFiles']),
+                        ->toolbarButtons([
+                            ['bold', 'italic', 'underline', 'strike', 'link'],
+                            ['h2', 'h3'],
+                            ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                            ['table', 'horizontalRule', 'attachCuratorMedia'],
+                            ['undo', 'redo'],
+                        ])
+                        ->columnSpanFull(),
                 ]),
                 Section::make('Thách thức')->collapsed()->schema([
                     self::cards('challenges', 'Các thách thức'),

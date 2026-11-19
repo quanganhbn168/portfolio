@@ -17,6 +17,8 @@ return new class extends SettingsMigration
         $this->migrator->add('website.facebook_url', '');
         $this->migrator->add('website.zalo_url', '');
         $this->migrator->add('website.youtube_url', '');
+        $this->migrator->add('website.services_url', '');
+        $this->migrator->add('website.services_label', '');
         $this->migrator->add('website.seo_title', '');
         $this->migrator->add('website.seo_description', '');
         $this->migrator->add('website.seo_keywords', '');
