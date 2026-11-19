@@ -36,13 +36,18 @@
             <p class="project-tile__excerpt">{{ $project->excerpt }}</p>
         @endif
         @if ($facts->isNotEmpty())
-            <dl class="project-tile__facts">
+            <ul class="project-tile__facts">
                 @foreach ($facts as $fact)
-                    <div title="{{ $fact['label'] }}"><dt><i class="fa-solid {{ $fact['icon'] }}" aria-hidden="true"></i><span class="visually-hidden">{{ $fact['label'] }}</span></dt><dd>{{ $fact['value'] }}</dd></div>
+                    <li title="{{ $fact['label'] }}"><i class="fa-solid {{ $fact['icon'] }}" aria-hidden="true"></i><span class="visually-hidden">{{ $fact['label'] }}: </span>{{ $fact['value'] }}</li>
                 @endforeach
-            </dl>
+            </ul>
         @endif
-        <div class="project-tile__actions">
+        @if (count($project->technology_list))
+            <ul class="tech-chips tech-chips--sm" aria-label="{{ __('Công nghệ sử dụng') }}">
+                @foreach (array_slice($project->technology_list, 0, 4) as $tech)<li>{{ $tech }}</li>@endforeach
+            </ul>
+        @endif
+        <div class="project-tile__actions project-tile__actions--touch">
             <a class="project-tile__more" href="{{ $url }}">{{ __('Xem chi tiết') }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
             @if ($project->website_url)
                 <a class="project-tile__live" href="{{ $project->website_url }}" target="_blank" rel="noopener noreferrer">{{ __('Xem website') }} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>

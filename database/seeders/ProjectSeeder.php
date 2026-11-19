@@ -27,6 +27,11 @@ final class ProjectSeeder extends Seeder
             ['quan-ly-ban-hang', 'https://quan-ly-ban-hang.example.com', 'Hệ thống quản lý bán hàng', 'Phần mềm', 'Phần mềm quản lý bán hàng, kho và báo cáo doanh thu theo thời gian thực.', '60.000.000đ', '2026-07-01', null, 'planning', 'Laravel, Livewire, MySQL, Git', false],
         ];
 
+        $clients = [
+            'cnetpos' => 'Công ty CNETPOS', 'hgtrip' => 'HGTrip Travel', 'xe-ghep-cam-khe' => 'Xe ghép Cẩm Khê',
+            'nhat-quang-gia' => 'Nhật Quang Gia', 'pinganxing' => 'PingAnXing VN', 'quan-ly-ban-hang' => 'Cửa hàng bán lẻ',
+        ];
+
         $gallery = collect($projects)->mapWithKeys(fn (array $p): array => [$p[0] => $this->media($p[0], $p[2])]);
 
         foreach ($projects as $index => [$image, $website, $title, $category, $excerpt, $price, $start, $done, $status, $tech, $featured]) {
@@ -36,7 +41,7 @@ final class ProjectSeeder extends Seeder
                 'project_category_id' => ProjectCategory::query()->where('name', $category)->value('id'),
                 'website_url' => $website, 'curator_media_id' => $gallery[$image], 'seo_image_media_id' => $gallery[$image],
                 'gallery' => [$gallery[$image], ...$others],
-                'client_name' => explode(' – ', $title)[0], 'industry' => $category,
+                'client_name' => $clients[$image], 'industry' => $category,
                 'price' => $price, 'started_at' => $start, 'completed_at' => $done, 'project_status' => $status, 'technologies' => $tech,
                 'video_url' => $index === 0 ? self::SAMPLE_VIDEO : null,
                 'excerpt' => $excerpt, 'body' => $this->body($title, $excerpt), 'status' => 'published', 'is_featured' => $featured,

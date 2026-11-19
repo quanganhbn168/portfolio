@@ -309,25 +309,6 @@
     right: .8rem;
 }
 
-/* Màn hình cảm ứng không có hover: hiện nút ngay dưới thẻ thay cho lớp phủ. */
-@media (hover: none) {
-    .project-tile__overlay {
-        position: static;
-        padding: .75rem 1.25rem 0;
-        background: none;
-        opacity: 1;
-        justify-content: flex-start;
-    }
-
-    .project-tile__media {
-        aspect-ratio: auto;
-    }
-
-    .project-tile__image {
-        aspect-ratio: 16 / 10;
-    }
-}
-
 .status-pill {
     display: inline-block;
     padding: .2rem .65rem;
@@ -506,5 +487,52 @@
 
     .pf-marquee__track[aria-hidden="true"] {
         display: none;
+    }
+}
+
+/* Thông số trên thẻ: một hàng gọn, icon cạnh chữ */
+.project-tile__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem 1rem;
+    margin: .25rem 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--bs-secondary-color);
+    font-size: .85rem;
+}
+
+.project-tile__facts li {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.project-tile__facts i {
+    color: var(--brand-accent-dark);
+    font-size: .8rem;
+}
+
+.tech-chips--sm {
+    margin-top: .5rem;
+}
+
+.tech-chips--sm li {
+    padding: .15rem .55rem;
+    font-size: .72rem;
+}
+
+/* Trên máy có chuột: nút hiện khi hover; link dưới thẻ chỉ dùng cho màn hình cảm ứng. */
+.project-tile__actions--touch {
+    display: none;
+}
+
+@media (hover: none) {
+    .project-tile__overlay {
+        display: none;
+    }
+
+    .project-tile__actions--touch {
+        display: flex;
     }
 }
