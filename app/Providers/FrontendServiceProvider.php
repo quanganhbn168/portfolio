@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Page;
+use App\Models\PricingPlan;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use App\Models\Service;
 use App\Models\User;
 use App\Observers\AssignNextOrderObserver;
 use App\Observers\ContentSeoFallbackObserver;
@@ -58,6 +60,8 @@ class FrontendServiceProvider extends ServiceProvider
         foreach ([
             Project::class,
             ProjectCategory::class,
+            Service::class,
+            PricingPlan::class,
         ] as $model) {
             $model::observe(AssignNextOrderObserver::class);
         }
@@ -114,11 +118,7 @@ class FrontendServiceProvider extends ServiceProvider
             'footerContactPhones' => $this->phoneLinks($website),
             'footerContactBranches' => $this->contactBranches($website),
             'currentYear' => now()->year,
-            'servicesLink' => filter_var($website->services_url, FILTER_VALIDATE_URL) ? [
-                'url' => $website->services_url,
-                'label' => filled($website->services_label) ? $website->services_label : __('Bảng giá & dịch vụ'),
-                'host' => preg_replace('/^www\\./', '', (string) parse_url($website->services_url, PHP_URL_HOST)),
-            ] : null,
+            'servicesLink' => ['url' => url('/services'), 'label' => __('Bảng giá & dịch vụ')],
         ]);
 
         View::composer('partials.footer', function (BladeView $view) use ($website): void {
@@ -197,6 +197,7 @@ class FrontendServiceProvider extends ServiceProvider
     {
         return collect([
             [__('Trang chủ'), route('home'), request()->routeIs('home') || request()->attributes->get('frontend.menu_route') === 'projects.index'],
+            [__('Bảng giá & dịch vụ'), route('services.index'), request()->routeIs('services.index')],
             [__('Giới thiệu'), route('about'), request()->routeIs('about')],
             [__('Blog'), route('posts.index'), request()->routeIs('posts.index')],
             [__('Liên hệ'), route('contact'), request()->routeIs('contact')],

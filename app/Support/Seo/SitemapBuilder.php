@@ -79,6 +79,7 @@ class SitemapBuilder
         foreach ([
             ['home', 'weekly', 1.0],
             ['posts.index', 'weekly', 0.8],
+            ['services.index', 'weekly', 0.9],
             ['about', 'monthly', 0.6],
             ['contact', 'monthly', 0.5],
         ] as [$route, $frequency, $priority]) {

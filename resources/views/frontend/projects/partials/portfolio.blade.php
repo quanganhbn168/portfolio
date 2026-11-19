@@ -32,15 +32,15 @@
                     </div>
                     <div class="fb-profile__actions">
                         <a class="btn btn-primary" href="{{ route('contact') }}"><i class="fa-regular fa-envelope me-2" aria-hidden="true"></i>{{ __('Nhắn tin') }}</a>
-                        @if ($servicesLink)
-                            <a class="btn btn-secondary-soft" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
-                        @endif
+                        <a class="btn btn-secondary-soft" href="{{ $servicesLink['url'] }}">{{ __('Bảng giá & dịch vụ') }}</a>
                     </div>
                 </div>
 
                 <nav class="fb-profile__tabs" aria-label="{{ __('Điều hướng trang cá nhân') }}">
                     <a class="is-active" href="#toi-la-ai">{{ __('Giới thiệu') }}</a>
                     <a href="#du-an-da-trien-khai">{{ __('Dự án') }}</a>
+                    @if ($services->isNotEmpty())<a href="#dich-vu">{{ __('Dịch vụ') }}</a>@endif
+                    @if ($plans->isNotEmpty())<a href="#bang-gia">{{ __('Bảng giá') }}</a>@endif
                     @if ($latestPosts->isNotEmpty())<a href="#bai-viet">{{ __('Blog') }}</a>@endif
                     <a href="#cong-nghe">{{ __('Công nghệ') }}</a>
                     <a href="{{ route('contact') }}">{{ __('Liên hệ') }}</a>
@@ -54,7 +54,6 @@
                         <ul class="fb-info">
                             @if ($website->owner_workplace)<li><i class="fa-solid fa-briefcase" aria-hidden="true"></i><span>{{ __('Làm việc tại') }} <strong>{{ $website->owner_workplace }}</strong></span></li>@endif
                             @if ($website->owner_location)<li><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>{{ __('Sống tại') }} <strong>{{ $website->owner_location }}</strong></span></li>@endif
-                            @if ($servicesLink)<li><i class="fa-solid fa-globe" aria-hidden="true"></i><a href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['host'] }}</a></li>@endif
                             @if ($contactEmail)<li><i class="fa-regular fa-envelope" aria-hidden="true"></i><a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a></li>@endif
                             @if ($hotline)<li><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:{{ preg_replace('/[^\d+]/', '', $hotline) }}">{{ $hotline }}</a></li>@endif
                         </ul>
@@ -101,6 +100,30 @@
         @endif
     </div>
 </section>
+
+@if ($services->isNotEmpty())
+    <section class="section-space pt-0" id="dich-vu">
+        <div class="container">
+            <header class="pf-list__head">
+                <h2>{{ __('Dịch vụ cung cấp') }}</h2>
+                <p>{{ __('Những việc mình có thể làm cho bạn, từ ý tưởng đến vận hành.') }}</p>
+            </header>
+            @include('frontend.partials.services-grid')
+        </div>
+    </section>
+@endif
+
+@if ($plans->isNotEmpty())
+    <section class="section-space pt-0" id="bang-gia">
+        <div class="container">
+            <header class="pf-list__head">
+                <h2>{{ __('Bảng giá tham khảo') }}</h2>
+                <p>{{ __('Giá thực tế tuỳ theo yêu cầu, liên hệ để được báo giá chi tiết.') }}</p>
+            </header>
+            @include('frontend.partials.pricing-plans')
+        </div>
+    </section>
+@endif
 
 @if ($latestPosts->isNotEmpty())
     <section class="section-space pt-0" id="bai-viet">
@@ -166,9 +189,7 @@
                 @if ($hotline)
                     <a class="btn btn-outline-light btn-lg" href="tel:{{ preg_replace('/[^\d+]/', '', $hotline) }}"><i class="fa-solid fa-phone me-2" aria-hidden="true"></i>{{ $hotline }}</a>
                 @endif
-                @if ($servicesLink)
-                    <a class="btn btn-outline-light btn-lg" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
-                @endif
+                <a class="btn btn-outline-light btn-lg" href="{{ $servicesLink['url'] }}">{{ __('Bảng giá & dịch vụ') }}</a>
                 <a class="btn btn-light btn-lg" href="{{ route('contact') }}">{{ __('Nhận tư vấn miễn phí') }}</a>
             </div>
         </div>

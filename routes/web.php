@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\Frontend\ProjectController;
 use App\Http\Controllers\Frontend\PublicSlugController;
+use App\Http\Controllers\Frontend\ServicesController;
 use App\Support\Branding\FaviconService;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::group([], function (): void {
     Route::get('/', [ProjectController::class, 'index'])->name('home');
     Route::redirect('/projects', '/')->name('projects.index');
     Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/services', ServicesController::class)->name('services.index');
     Route::get('/about', AboutController::class)->name('about');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:frontend-contact')->name('contact.store');

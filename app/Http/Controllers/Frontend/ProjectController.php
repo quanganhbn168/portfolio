@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\PricingPlan;
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use App\Models\Service;
 use App\Support\Media\MediaUrl;
 use App\Support\Pages\SystemPageProfileResolver;
 use App\Support\Projects\ProjectDetailContent;
@@ -147,6 +149,8 @@ class ProjectController extends Controller
         return [
             'portfolioProjects' => $projects,
             'portfolioFilters' => $filters,
+            'services' => Service::query()->active()->get(),
+            'plans' => PricingPlan::query()->active()->get(),
             'latestPosts' => Post::query()->published()->with(['curatorMedia', 'slugs'])->orderByDesc('published_at')->limit(3)->get(),
         ];
     }

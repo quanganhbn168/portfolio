@@ -30,6 +30,7 @@ class Page extends Model
     public const SYSTEM_PAGES = [
         'home' => ['label' => 'Trang chủ', 'route' => 'home'],
         'about' => ['label' => 'Giới thiệu', 'route' => 'about'],
+        'services' => ['label' => 'Dịch vụ & bảng giá', 'route' => 'services.index'],
         'blog' => ['label' => 'Blog', 'route' => 'posts.index'],
         'contact' => ['label' => 'Liên hệ', 'route' => 'contact'],
     ];

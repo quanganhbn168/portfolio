@@ -73,8 +73,6 @@ class ManageSettings extends Page
             'facebook_url' => $website->facebook_url,
             'zalo_url' => $website->zalo_url,
             'youtube_url' => $website->youtube_url,
-            'services_url' => $website->services_url,
-            'services_label' => $website->services_label,
             'owner_name' => $website->owner_name,
             'owner_title' => $website->owner_title,
             'owner_bio' => $website->owner_bio,
@@ -230,7 +228,7 @@ class ManageSettings extends Page
             }
         }
 
-        foreach (['site_name', 'tagline', 'footer_description', 'contact_email', 'facebook_url', 'zalo_url', 'youtube_url', 'services_url', 'services_label', 'owner_name', 'owner_title', 'owner_bio', 'owner_workplace', 'owner_location', 'github_url', 'tiktok_url', 'telegram_url', 'seo_title', 'seo_description', 'seo_keywords'] as $key) {
+        foreach (['site_name', 'tagline', 'footer_description', 'contact_email', 'facebook_url', 'zalo_url', 'youtube_url', 'owner_name', 'owner_title', 'owner_bio', 'owner_workplace', 'owner_location', 'github_url', 'tiktok_url', 'telegram_url', 'seo_title', 'seo_description', 'seo_keywords'] as $key) {
             $website->{$key} = (string) ($data[$key] ?? '');
         }
 

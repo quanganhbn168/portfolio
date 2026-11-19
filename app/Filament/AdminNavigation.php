@@ -7,8 +7,10 @@ use App\Filament\Pages\ManageSettings;
 use App\Filament\Resources\ContactRequests\ContactRequestResource;
 use App\Filament\Resources\Page\PageResource;
 use App\Filament\Resources\Posts\PostResource;
+use App\Filament\Resources\PricingPlans\PricingPlanResource;
 use App\Filament\Resources\ProjectCategories\ProjectCategoryResource;
 use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Resources\Services\ServiceResource;
 use Awcodes\Curator\Resources\Media\MediaResource;
 use BezhanSalleh\FilamentShield\Resources\Roles\RoleResource;
 use Filament\Navigation\NavigationBuilder;
@@ -33,6 +35,10 @@ final class AdminNavigation
         return [
             ['Nội dung', false, [
                 PageResource::class => ['Trang', Heroicon::OutlinedDocumentDuplicate],
+            ]],
+            ['Dịch vụ & bảng giá', false, [
+                ServiceResource::class => ['Dịch vụ', Heroicon::OutlinedWrenchScrewdriver],
+                PricingPlanResource::class => ['Bảng giá', Heroicon::OutlinedCurrencyDollar],
             ]],
             ['Blog', false, [
                 PostResource::class => ['Bài viết', Heroicon::OutlinedNewspaper],

@@ -169,21 +169,19 @@
     </section>
 
     @endif
-    @if ($servicesLink)
     <section class="project-case__section">
         <div class="container">
             <div class="pf-cta">
                 <div>
                     <h2>{{ __('Muốn có một dự án tương tự?') }}</h2>
-                    <p>{{ __('Xem bảng giá và các dịch vụ tại :p1, hoặc liên hệ để được tư vấn miễn phí.', ['p1' => $servicesLink['host']]) }}</p>
+                    <p>{{ __('Xem bảng giá và các dịch vụ, hoặc liên hệ để được tư vấn miễn phí.') }}</p>
                 </div>
                 <div class="d-flex flex-wrap gap-3">
-                    <a class="btn btn-light btn-lg" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
+                    <a class="btn btn-light btn-lg" href="{{ $servicesLink['url'] }}">{{ __('Bảng giá & dịch vụ') }}</a>
                     <a class="btn btn-outline-light btn-lg" href="{{ route('contact') }}">{{ __('Liên hệ tư vấn') }}</a>
                 </div>
             </div>
         </div>
     </section>
-    @endif
 </div>
 @endsection

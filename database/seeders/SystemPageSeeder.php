@@ -13,6 +13,7 @@ final class SystemPageSeeder extends Seeder
         foreach ([
             'home' => ['Các dự án tiêu biểu đã triển khai', 'Portfolio | Các dự án tiêu biểu đã triển khai', 'Tổng hợp website, landing page, hệ thống phần mềm và giải pháp số đã triển khai cho khách hàng.'],
             'about' => ['Giới thiệu', 'Giới thiệu', 'Giới thiệu về năng lực, kinh nghiệm và cách làm việc.'],
+            'services' => ['Dịch vụ & bảng giá', 'Dịch vụ & bảng giá | Portfolio', 'Các dịch vụ thiết kế, lập trình website, phần mềm và bảng giá tham khảo.'],
             'blog' => ['Blog', 'Blog | Chia sẻ kinh nghiệm làm web', 'Những bài viết chia sẻ kinh nghiệm thiết kế, lập trình và vận hành website.'],
             'contact' => ['Liên hệ', 'Liên hệ tư vấn dự án', 'Liên hệ để được tư vấn miễn phí cho dự án của bạn.'],
         ] as $key => [$title, $seoTitle, $seoDescription]) {
