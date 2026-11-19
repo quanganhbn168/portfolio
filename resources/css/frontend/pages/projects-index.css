@@ -31,16 +31,14 @@
     font-size: 1.1rem;
 }
 
-.pf-hero__media,
-.pf-case__media {
+.pf-hero__media {
     aspect-ratio: 16 / 10;
     overflow: hidden;
     border-radius: 1.25rem;
     box-shadow: 0 24px 60px rgba(15, 23, 42, .18);
 }
 
-.pf-hero__media img,
-.pf-case__media img {
+.pf-hero__media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -96,28 +94,62 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: .6rem;
-    margin-bottom: 2rem;
+    gap: .5rem;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 2.25rem;
+    padding: .5rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: .875rem;
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(42, 20, 12, .06);
 }
 
 .pf-tab {
-    padding: .55rem 1.1rem;
-    border: 1px solid var(--bs-border-color);
-    border-radius: 999px;
-    background: #fff;
-    font-size: .9rem;
-    font-weight: 600;
-    transition: background-color .2s, color .2s, border-color .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .6rem .9rem .6rem 1.1rem;
+    border: 0;
+    border-radius: .6rem;
+    background: transparent;
+    color: var(--brand-navy);
+    font-size: .92rem;
+    font-weight: 700;
+    transition: background-color .2s, color .2s, box-shadow .2s;
 }
 
 .pf-tab:hover {
-    border-color: var(--brand-secondary);
+    background: var(--brand-tint);
+}
+
+.pf-tab:focus-visible {
+    outline: 2px solid var(--brand-accent);
+    outline-offset: 2px;
+}
+
+.pf-tab__count {
+    min-width: 1.6rem;
+    padding: .1rem .45rem;
+    border-radius: .4rem;
+    background: var(--brand-background);
+    color: var(--brand-primary);
+    font-size: .75rem;
+    font-weight: 800;
+    line-height: 1.5;
+    text-align: center;
+    transition: background-color .2s, color .2s;
 }
 
 .pf-tab.is-active {
-    border-color: var(--brand-secondary);
-    background: var(--brand-secondary);
+    background: var(--brand-primary);
     color: #fff;
+    box-shadow: 0 6px 16px rgba(107, 50, 32, .28), inset 0 -3px 0 var(--brand-accent);
+}
+
+.pf-tab.is-active .pf-tab__count {
+    background: var(--brand-accent);
+    color: var(--brand-navy);
 }
 
 [data-pf-grid] > [hidden] {
@@ -200,27 +232,6 @@
     font-size: .9rem;
     font-weight: 700;
     text-decoration: none;
-}
-
-/* Case study */
-.pf-case {
-    display: grid;
-    align-items: center;
-    gap: 2rem;
-    padding: clamp(1.5rem, 4vw, 3rem);
-    border-radius: 1.25rem;
-    background: linear-gradient(135deg, var(--brand-background), color-mix(in srgb, var(--brand-accent) 12%, #fff));
-}
-
-.pf-case h2 {
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 800;
-}
-
-@media (min-width: 992px) {
-    .pf-case {
-        grid-template-columns: 1fr 1fr;
-    }
 }
 
 /* CTA */

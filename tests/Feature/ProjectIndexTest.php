@@ -16,7 +16,7 @@ class ProjectIndexTest extends TestCase
         return Project::create($attributes + ['title' => $title, 'status' => 'published']);
     }
 
-    public function test_portfolio_shows_case_study_and_filter_tabs_with_counts(): void
+    public function test_portfolio_shows_filter_tabs_with_count_badges(): void
     {
         $first = ProjectCategory::create(['name' => 'Nhóm thứ nhất QA', 'is_active' => true, 'sort_order' => 10]);
         $second = ProjectCategory::create(['name' => 'Nhóm thứ hai QA', 'is_active' => true, 'sort_order' => 20]);
@@ -30,22 +30,21 @@ class ProjectIndexTest extends TestCase
         $response = $this->get(route('home'))->assertOk()
             ->assertSee('pf-hero', false)
             ->assertSee('id="cong-nghe"', false)
-            ->assertSee('id="case-study"', false)
             ->assertSee('Tóm tắt nổi bật QA')
-            ->assertSee('Tất cả (3)')
-            ->assertSee('Nhóm thứ nhất QA (2)')
-            ->assertSee('Nhóm thứ hai QA (1)')
+            ->assertSee('<span class="pf-tab__count">3</span>', false)
+            ->assertSee('Nhóm thứ nhất QA')
+            ->assertSee('<span class="pf-tab__count">2</span>', false)
+            ->assertSee('Nhóm thứ hai QA')
             ->assertDontSee('Nhóm trống QA')
-            ->assertDontSee('Nhóm con QA (');
+            ->assertDontSee('data-filter="'.$child->id.'"', false);
 
         // Dự án của danh mục con thuộc nhóm lọc của danh mục gốc.
         $this->assertMatchesRegularExpression('/data-group="'.$first->id.'".*Dự án nhóm con QA/s', $response->getContent());
     }
 
-    public function test_page_without_projects_has_no_case_study(): void
+    public function test_page_without_projects_shows_empty_state(): void
     {
         $this->get(route('home'))->assertOk()
-            ->assertDontSee('id="case-study"', false)
             ->assertSee('Chưa có dự án được xuất bản');
     }
 

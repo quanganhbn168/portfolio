@@ -1,7 +1,7 @@
 {{-- Trang Portfolio: hero + số liệu, tab lọc theo lĩnh vực, lưới dự án, case study, CTA. --}}
 @php
     $hotline = $website->primaryPhone() ?: $website->hotline;
-    $heroImage = $caseStudy?->image_webp_url;
+    $heroImage = $heroProject?->image_webp_url;
 @endphp
 
 @if (filled($website->owner_name) || filled($website->owner_bio))
@@ -51,7 +51,7 @@
             </div>
             @if ($heroImage)
                 <div class="col-lg-6">
-                    <div class="pf-hero__media"><img src="{{ $heroImage }}" alt="{{ $caseStudy->title }}" fetchpriority="high"></div>
+                    <div class="pf-hero__media"><img src="{{ $heroImage }}" alt="{{ $heroProject->title }}" fetchpriority="high"></div>
                 </div>
             @endif
         </div>
@@ -70,9 +70,9 @@
         @else
             @if ($portfolioFilters->count() > 1)
                 <div class="pf-tabs" role="group" aria-label="{{ __('Lọc dự án') }}" data-pf-tabs>
-                    <button type="button" class="pf-tab is-active" data-filter="all" aria-pressed="true">{{ __('Tất cả') }} ({{ $portfolioProjects->count() }})</button>
+                    <button type="button" class="pf-tab is-active" data-filter="all" aria-pressed="true"><span class="pf-tab__label">{{ __('Tất cả') }}</span><span class="pf-tab__count">{{ $portfolioProjects->count() }}</span></button>
                     @foreach ($portfolioFilters as $filter)
-                        <button type="button" class="pf-tab" data-filter="{{ $filter['id'] }}" aria-pressed="false">{{ $filter['name'] }} ({{ $filter['count'] }})</button>
+                        <button type="button" class="pf-tab" data-filter="{{ $filter['id'] }}" aria-pressed="false"><span class="pf-tab__label">{{ $filter['name'] }}</span><span class="pf-tab__count">{{ $filter['count'] }}</span></button>
                     @endforeach
                 </div>
             @endif
@@ -121,29 +121,6 @@
         </div>
     @endforeach
 </section>
-
-@if ($caseStudy)
-    <section class="section-space pt-0" id="case-study">
-        <div class="container">
-            <div class="pf-case">
-                <div class="pf-case__text">
-                    <span class="pf-badge">{{ __('Case study') }}</span>
-                    <h2>{{ $caseStudy->title }}</h2>
-                    @if ($caseStudy->excerpt)
-                        <p>{{ $caseStudy->excerpt }}</p>
-                    @endif
-                    <a class="btn btn-primary" href="{{ route('slug.show', ['slug' => $caseStudy->slug]) }}">{{ __('Xem chi tiết case study') }} <i class="fa-solid fa-arrow-right ms-1" aria-hidden="true"></i></a>
-                    @if ($caseStudy->website_url)
-                        <a class="btn btn-outline-secondary ms-2" href="{{ $caseStudy->website_url }}" target="_blank" rel="noopener noreferrer">{{ __('Xem website thực tế') }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
-                    @endif
-                </div>
-                @if ($heroImage)
-                    <div class="pf-case__media"><img src="{{ $caseStudy->image_card_url }}" alt="" loading="lazy"></div>
-                @endif
-            </div>
-        </div>
-    </section>
-@endif
 
 <section class="pb-5">
     <div class="container">
