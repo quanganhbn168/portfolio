@@ -92,10 +92,15 @@
                 </div>
             @endif
 
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" data-pf-grid>
+            <div class="pf-grid-wrap" data-pf-wrap data-pf-step="6">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" data-pf-grid>
                 @foreach ($portfolioProjects as $project)
                     <div class="col" data-group="{{ $project->filter_group }}">@include('frontend.projects.partials.list-card')</div>
                 @endforeach
+                </div>
+                <div class="pf-more" data-pf-more hidden>
+                    <button type="button" class="btn btn-primary btn-lg" data-pf-more-button>{{ __('Xem thêm') }} <i class="fa-solid fa-chevron-down ms-1" aria-hidden="true"></i></button>
+                </div>
             </div>
         @endif
     </div>
@@ -197,10 +202,31 @@
 
 <script>
     (() => {
+        const wrap = document.querySelector('[data-pf-wrap]');
+        if (!wrap) return;
+        const grid = wrap.querySelector('[data-pf-grid]');
+        const more = wrap.querySelector('[data-pf-more]');
         const tabs = document.querySelector('[data-pf-tabs]');
-        const grid = document.querySelector('[data-pf-grid]');
-        if (!tabs || !grid) return;
-        tabs.addEventListener('click', (event) => {
+        const step = parseInt(wrap.dataset.pfStep, 10) || 6;
+        let filter = 'all';
+        let visible = step;
+
+        // Hiện tối đa "visible" dự án thuộc nhóm đang lọc; còn dự án nữa thì hiện nút Xem thêm (mờ dần xuống nền).
+        const render = () => {
+            const matches = [...grid.querySelectorAll('[data-group]')].filter((card) => filter === 'all' || card.dataset.group === filter);
+            grid.querySelectorAll('[data-group]').forEach((card) => { card.hidden = true; });
+            matches.forEach((card, index) => { card.hidden = index >= visible; });
+            const hasMore = matches.length > visible;
+            more.hidden = !hasMore;
+            wrap.classList.toggle('has-more', hasMore);
+        };
+
+        more.querySelector('[data-pf-more-button]').addEventListener('click', () => {
+            visible += step;
+            render();
+        });
+
+        tabs?.addEventListener('click', (event) => {
             const tab = event.target.closest('[data-filter]');
             if (!tab) return;
             tabs.querySelectorAll('[data-filter]').forEach((item) => {
@@ -208,9 +234,11 @@
                 item.classList.toggle('is-active', on);
                 item.setAttribute('aria-pressed', on);
             });
-            grid.querySelectorAll('[data-group]').forEach((card) => {
-                card.hidden = tab.dataset.filter !== 'all' && card.dataset.group !== tab.dataset.filter;
-            });
+            filter = tab.dataset.filter;
+            visible = step;
+            render();
         });
+
+        render();
     })();
 </script>

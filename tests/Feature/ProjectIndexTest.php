@@ -35,6 +35,7 @@ class ProjectIndexTest extends TestCase
             ->assertSee('id="toi-la-ai"', false)
             ->assertSee('Chủ site QA')
             ->assertSee('id="cong-nghe"', false)
+            ->assertSee('data-pf-more', false)
             ->assertSee('Tóm tắt nổi bật QA')
             ->assertSee('<span class="pf-tab__count">3</span>', false)
             ->assertSee('Nhóm thứ nhất QA')

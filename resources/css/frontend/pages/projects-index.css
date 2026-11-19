@@ -540,3 +540,35 @@ html {
         align-items: start;
     }
 }
+
+/* Danh sách dự án: hiện từng đợt, nút Xem thêm ở giữa, nền mờ dần từ trong suốt xuống nền trang */
+.pf-grid-wrap {
+    position: relative;
+}
+
+.pf-more {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: clamp(9rem, 22vw, 14rem);
+    padding-bottom: .5rem;
+    background: linear-gradient(to bottom, transparent, var(--bs-body-bg) 78%);
+    pointer-events: none;
+}
+
+.pf-more[hidden] {
+    display: none;
+}
+
+.pf-more .btn {
+    pointer-events: auto;
+    box-shadow: 0 10px 26px rgba(217, 115, 13, .35);
+}
+
+.pf-grid-wrap.has-more {
+    padding-bottom: 1rem;
+}

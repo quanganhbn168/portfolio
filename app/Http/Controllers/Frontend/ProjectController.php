@@ -128,7 +128,6 @@ class ProjectController extends Controller
             ->orderByDesc('is_featured')
             ->orderByDesc('published_at')
             ->orderByDesc('id')
-            ->limit(60)
             ->get();
 
         // Nhóm lọc của một dự án = danh mục gốc của nó (0 nếu chưa gắn danh mục).
