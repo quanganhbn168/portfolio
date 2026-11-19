@@ -113,7 +113,7 @@ class ProjectController extends Controller
 
     /**
      * Dữ liệu trang portfolio: các dự án đã xuất bản (lọc phía trình duyệt theo danh mục gốc),
-     * số liệu tổng quan và dự án làm ảnh hero.
+     * và nhóm lọc.
      *
      * @return array<string, mixed>
      */
@@ -146,7 +146,6 @@ class ProjectController extends Controller
         return [
             'portfolioProjects' => $projects,
             'portfolioFilters' => $filters,
-            'heroProject' => $projects->first(),
         ];
     }
 

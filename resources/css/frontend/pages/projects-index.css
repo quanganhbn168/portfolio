@@ -12,69 +12,6 @@
     text-transform: uppercase;
 }
 
-.pf-hero {
-    padding: clamp(2.5rem, 6vw, 5rem) 0;
-    background: linear-gradient(135deg, var(--brand-background), color-mix(in srgb, var(--brand-accent) 10%, #fff));
-}
-
-.pf-hero__title {
-    margin-bottom: 1rem;
-    font-size: clamp(2.2rem, 5vw, 3.4rem);
-    font-weight: 800;
-    letter-spacing: -.03em;
-}
-
-.pf-hero__lead {
-    max-width: 34rem;
-    margin-bottom: 1.5rem;
-    color: var(--bs-secondary-color);
-    font-size: 1.1rem;
-}
-
-.pf-hero__media {
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    border-radius: 1.25rem;
-    box-shadow: 0 24px 60px rgba(15, 23, 42, .18);
-}
-
-.pf-hero__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.pf-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem 2rem;
-    margin: 0 0 1.75rem;
-    padding: 0;
-    list-style: none;
-}
-
-.pf-stats li {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-}
-
-.pf-stats i {
-    color: var(--brand-accent);
-    font-size: 1.6rem;
-}
-
-.pf-stats strong {
-    display: block;
-    font-size: 1.5rem;
-    line-height: 1.1;
-}
-
-.pf-stats span {
-    color: var(--bs-secondary-color);
-    font-size: .85rem;
-}
-
 .pf-list__head {
     margin-bottom: 1.75rem;
     text-align: center;
@@ -548,7 +485,3 @@
     }
 }
 
-/* "Tôi là ai" đứng đầu trang, hero nằm ngay dưới */
-.pf-owner-top + .pf-hero {
-    margin-top: clamp(1.5rem, 4vw, 3rem);
-}

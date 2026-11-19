@@ -28,7 +28,7 @@ class ProjectIndexTest extends TestCase
         $this->project('Dự án nhóm hai QA', ['project_category_id' => $second->id]);
 
         $response = $this->get(route('home'))->assertOk()
-            ->assertSee('pf-hero', false)
+            ->assertSee('id="toi-la-ai"', false)
             ->assertSee('id="cong-nghe"', false)
             ->assertSee('Tóm tắt nổi bật QA')
             ->assertSee('<span class="pf-tab__count">3</span>', false)
@@ -69,7 +69,7 @@ class ProjectIndexTest extends TestCase
         $this->project('Dự án trong nhóm B QA', ['project_category_id' => $category->id]);
 
         $this->get(route('slug.show', ['slug' => $category->slug]))->assertOk()
-            ->assertDontSee('pf-hero', false)
+            ->assertDontSee('pf-tabs', false)
             ->assertSee('project-tile', false)
             ->assertSee('Dự án trong nhóm A QA')
             ->assertSee('Dự án trong nhóm B QA');

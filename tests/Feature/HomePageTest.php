@@ -15,7 +15,7 @@ class HomePageTest extends TestCase
         Project::create(['title' => 'Dự án trang chủ QA', 'status' => 'published']);
 
         $this->get(route('home'))->assertOk()
-            ->assertSee('pf-hero', false)
+            ->assertSee('pf-tabs', false)
             ->assertSee('Dự án trang chủ QA');
     }
 

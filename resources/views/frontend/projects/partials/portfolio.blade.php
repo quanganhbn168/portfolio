@@ -1,14 +1,13 @@
 {{-- Trang Portfolio: hero + số liệu, tab lọc theo lĩnh vực, lưới dự án, case study, CTA. --}}
 @php
     $hotline = $website->primaryPhone() ?: $website->hotline;
-    $heroImage = $heroProject?->image_webp_url;
 @endphp
 
 @if (filled($website->owner_name) || filled($website->owner_bio))
     @php
         $ownerImage = \App\Support\Media\MediaUrl::webp($websiteMedia->get($website->owner_media_id), 640);
     @endphp
-    <section class="section-space pb-0 pf-owner-top" id="toi-la-ai">
+    <section class="section-space pb-0" id="toi-la-ai">
         <div class="container">
             <div class="pf-owner-card">
                 @if ($ownerImage)
@@ -31,32 +30,7 @@
     </section>
 @endif
 
-<section class="pf-hero">
-    <div class="container">
-        <div class="row align-items-center g-4 g-lg-5">
-            <div class="col-lg-6">
-                <span class="pf-badge">{{ __('Portfolio') }}</span>
-                <h1 class="pf-hero__title">{{ $pageTitle }}</h1>
-                <p class="pf-hero__lead">{{ $pageDescription }}</p>
-
-                @if ($servicesLink)
-                    <p class="pf-owner"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{ __('Đây là portfolio của') }} <a href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['host'] }}</a> — {{ __('xem bảng giá và dịch vụ chi tiết tại đó.') }}</p>
-                @endif
-                <div class="d-flex flex-wrap gap-3">
-                    <a class="btn btn-primary btn-lg" href="{{ route('contact') }}">{{ __('Liên hệ tư vấn dự án') }} <i class="fa-solid fa-arrow-right ms-1" aria-hidden="true"></i></a>
-                    @if ($servicesLink)
-                        <a class="btn btn-outline-secondary btn-lg" href="{{ $servicesLink['url'] }}" target="_blank" rel="noopener">{{ $servicesLink['label'] }} <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i></a>
-                    @endif
-                </div>
-            </div>
-            @if ($heroImage)
-                <div class="col-lg-6">
-                    <div class="pf-hero__media"><img src="{{ $heroImage }}" alt="{{ $heroProject->title }}" fetchpriority="high"></div>
-                </div>
-            @endif
-        </div>
-    </div>
-</section>
+<h1 class="visually-hidden">{{ $pageTitle }}</h1>
 
 <section class="section-space pf-list" id="du-an-da-trien-khai">
     <div class="container">
