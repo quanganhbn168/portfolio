@@ -75,6 +75,13 @@ class ManageSettings extends Page
             'youtube_url' => $website->youtube_url,
             'services_url' => $website->services_url,
             'services_label' => $website->services_label,
+            'owner_name' => $website->owner_name,
+            'owner_title' => $website->owner_title,
+            'owner_bio' => $website->owner_bio,
+            'owner_media_id' => $website->owner_media_id,
+            'github_url' => $website->github_url,
+            'tiktok_url' => $website->tiktok_url,
+            'telegram_url' => $website->telegram_url,
             'seo_title' => $website->seo_title,
             'seo_description' => $website->seo_description,
             'seo_keywords' => $website->seo_keywords,
@@ -220,7 +227,7 @@ class ManageSettings extends Page
             }
         }
 
-        foreach (['site_name', 'tagline', 'footer_description', 'contact_email', 'facebook_url', 'zalo_url', 'youtube_url', 'services_url', 'services_label', 'seo_title', 'seo_description', 'seo_keywords'] as $key) {
+        foreach (['site_name', 'tagline', 'footer_description', 'contact_email', 'facebook_url', 'zalo_url', 'youtube_url', 'services_url', 'services_label', 'owner_name', 'owner_title', 'owner_bio', 'github_url', 'tiktok_url', 'telegram_url', 'seo_title', 'seo_description', 'seo_keywords'] as $key) {
             $website->{$key} = (string) ($data[$key] ?? '');
         }
 
@@ -237,7 +244,7 @@ class ManageSettings extends Page
         $website->google_maps_embed_url = GoogleMapsUrl::normalizeEmbed($data['google_maps_embed_url'] ?? null)
             ?? $maps->resolveEmbed($website->google_maps_url);
 
-        foreach (['logo_media_id', 'favicon_media_id', 'seo_image_media_id', 'footer_background_media_id', 'banner_media_id'] as $key) {
+        foreach (['logo_media_id', 'favicon_media_id', 'seo_image_media_id', 'footer_background_media_id', 'banner_media_id', 'owner_media_id'] as $key) {
             $website->{$key} = filled($data[$key] ?? null) ? (int) $data[$key] : null;
         }
 

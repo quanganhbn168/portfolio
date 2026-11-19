@@ -4,13 +4,14 @@ namespace Database\Seeders;
 
 use App\Models\Project;
 use App\Models\ProjectCategory;
-use Awcodes\Curator\Models\Media;
+use Database\Seeders\Concerns\ImportsSeedMedia;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
 
 /** Dự án mẫu kèm ảnh mockup (database/seeders/images): thay bằng dự án thật và ảnh trong admin. */
 final class ProjectSeeder extends Seeder
 {
+    use ImportsSeedMedia;
+
     /** Video mẫu (placeholder) để xem phần video trên trang chi tiết. */
     private const SAMPLE_VIDEO = 'https://www.youtube.com/watch?v=aqz-KE-bpKQ';
 
@@ -62,23 +63,5 @@ final class ProjectSeeder extends Seeder
 <pre><code>php artisan migrate --seed</code></pre>
 <p>Xem thêm <a href="https://laravel.com" target="_blank" rel="noopener">tài liệu Laravel</a> nếu cần.</p>
 HTML;
-    }
-
-    /** Chép ảnh mẫu vào disk public và tạo bản ghi trong thư viện media. */
-    private function media(string $name, string $title): int
-    {
-        $filename = $name.'.svg';
-        $source = database_path('seeders/images/'.$filename);
-        $disk = Storage::disk('public');
-
-        if (! $disk->exists($filename)) {
-            $disk->put($filename, file_get_contents($source));
-        }
-
-        return Media::query()->firstOrCreate(['disk' => 'public', 'path' => $filename], [
-            'directory' => null, 'visibility' => 'public', 'name' => $name,
-            'width' => 1200, 'height' => 750, 'size' => filesize($source) ?: 0,
-            'type' => 'image/svg+xml', 'ext' => 'svg', 'alt' => $title, 'title' => $title,
-        ])->getKey();
     }
 }

@@ -19,6 +19,13 @@ return new class extends SettingsMigration
         $this->migrator->add('website.youtube_url', '');
         $this->migrator->add('website.services_url', '');
         $this->migrator->add('website.services_label', '');
+        $this->migrator->add('website.owner_name', '');
+        $this->migrator->add('website.owner_title', '');
+        $this->migrator->add('website.owner_bio', '');
+        $this->migrator->add('website.owner_media_id', null);
+        $this->migrator->add('website.github_url', '');
+        $this->migrator->add('website.tiktok_url', '');
+        $this->migrator->add('website.telegram_url', '');
         $this->migrator->add('website.seo_title', '');
         $this->migrator->add('website.seo_description', '');
         $this->migrator->add('website.seo_keywords', '');

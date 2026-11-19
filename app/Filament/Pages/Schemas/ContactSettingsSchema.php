@@ -65,6 +65,18 @@ final class ContactSettingsSchema
                     TextInput::make('facebook_url')->label('Facebook')->url()->maxLength(2048),
                     TextInput::make('zalo_url')->label('Zalo')->url()->maxLength(2048),
                     TextInput::make('youtube_url')->label('YouTube')->url()->maxLength(2048),
+                    TextInput::make('github_url')->label('GitHub')->url()->maxLength(2048),
+                    TextInput::make('tiktok_url')->label('TikTok')->url()->maxLength(2048),
+                    TextInput::make('telegram_url')->label('Telegram')->url()->maxLength(2048),
+                ])
+                ->columns(2),
+            Section::make('Tôi là ai')
+                ->description('Hiện ở khối giới thiệu bản thân trên trang chủ, cùng các mạng xã hội bên dưới.')
+                ->schema([
+                    TextInput::make('owner_name')->label('Họ tên')->maxLength(120),
+                    TextInput::make('owner_title')->label('Chức danh')->maxLength(160),
+                    Textarea::make('owner_bio')->label('Giới thiệu ngắn')->rows(5)->maxLength(1200)->columnSpanFull(),
+                    CuratorPicker::make('owner_media_id')->label('Ảnh đại diện')->disk('public')->constrained()->acceptedFileTypes(['image/*']),
                 ])
                 ->columns(2),
             Section::make('Bảng giá & dịch vụ')

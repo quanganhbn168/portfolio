@@ -10,11 +10,7 @@
                 @endif
             </a>
             <p class="footer__tagline">{{ $website->footer_description }}</p>
-            <div class="footer__socials">
-                @if ($website->facebook_url)<a class="footer__social" href="{{ $website->facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.75l.41-3.12H13.5V7.9c0-.9.25-1.52 1.55-1.52h1.66V3.6A22.2 22.2 0 0 0 14.3 3c-2.38 0-4.01 1.45-4.01 4.11v2.77H7.6V13h2.69v8h3.21Z"/></svg></a>@endif
-                @if ($website->zalo_url)<a class="footer__social" href="{{ $website->zalo_url }}" target="_blank" rel="noopener noreferrer" aria-label="Zalo"><img src="{{ asset('images/zalo.svg') }}" alt=""></a>@endif
-                @if ($website->youtube_url)<a class="footer__social" href="{{ $website->youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.12C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.4.58A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.12c1.85.58 9.4.58 9.4.58s7.55 0 9.4-.58a3 3 0 0 0 2.1-2.12A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.57V8.43L15.87 12 9.6 15.57Z"/></svg></a>@endif
-            </div>
+            @include('partials.socials')
         </section>
 
         <section class="col-12 col-md-6 col-lg-2">

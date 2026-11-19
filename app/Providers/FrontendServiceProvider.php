@@ -81,6 +81,7 @@ class FrontendServiceProvider extends ServiceProvider
             $website->about_image_media_id,
             $website->banner_media_id,
             $website->footer_background_media_id,
+            $website->owner_media_id,
         ]));
 
         $media = $mediaIds === []

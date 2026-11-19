@@ -33,6 +33,21 @@ class WebsiteSettings extends Settings
 
     public string $services_label = '';
 
+    /** Giới thiệu bản thân ("Tôi là ai"). */
+    public string $owner_name = '';
+
+    public string $owner_title = '';
+
+    public string $owner_bio = '';
+
+    public ?int $owner_media_id = null;
+
+    public string $github_url = '';
+
+    public string $tiktok_url = '';
+
+    public string $telegram_url = '';
+
     public string $seo_title = '';
 
     public string $seo_description = '';

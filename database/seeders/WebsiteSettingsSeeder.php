@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 
 use App\Settings\WebsiteSettings;
+use Database\Seeders\Concerns\ImportsSeedMedia;
 use Illuminate\Database\Seeder;
 
 final class WebsiteSettingsSeeder extends Seeder
 {
+    use ImportsSeedMedia;
+
     public function run(): void
     {
         $settings = new WebsiteSettings([
@@ -21,6 +24,13 @@ final class WebsiteSettingsSeeder extends Seeder
             'facebook_url' => '',
             'zalo_url' => '',
             'youtube_url' => '',
+            'owner_name' => 'Anh Trần',
+            'owner_title' => 'Lập trình viên Web · Founder WebApp Bắc Ninh',
+            'owner_bio' => 'Xin chào, tôi là Anh. Tôi thiết kế, lập trình và vận hành website, landing page và phần mềm cho doanh nghiệp, từ khảo sát nhu cầu, thiết kế, lập trình đến bàn giao và bảo trì. Tôi làm việc chủ yếu với Laravel, MySQL, Tailwind CSS và dùng các công cụ AI như Claude, ChatGPT để làm nhanh hơn mà vẫn chắc tay. (Nội dung mẫu: sửa trong admin → Cài đặt website → Liên hệ → Tôi là ai.)',
+            'owner_media_id' => $this->media('avatar', 'Ảnh đại diện'),
+            'github_url' => 'https://github.com/quanganhbn168',
+            'tiktok_url' => '',
+            'telegram_url' => '',
             'services_url' => 'https://webappbacninh.vn',
             'services_label' => 'Bảng giá & dịch vụ',
             'seo_title' => 'Portfolio | Các dự án tiêu biểu đã triển khai',
